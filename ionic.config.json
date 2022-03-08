@@ -1,0 +1,7 @@
+{
+  "name": "ourCultureTheApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
