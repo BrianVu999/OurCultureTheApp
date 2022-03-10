@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+
+            <div id="header">
+                Our Cultures - The App
+            </div>
+
+        </ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <br><br>
+    <div style="width: fit-content; margin: auto;">
+        <ion-item style="width: 400px;">
+            <ion-label position="stacked">Username</ion-label>
+            <ion-input placeholder="Enter username"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input placeholder="Enter passowrd"></ion-input>
+        </ion-item>
+        <br>
+        <ion-button>Log in</ion-button>
+        <ion-button color="dark" style="float:right">Register</ion-button>
+        <br><br>
+        <a href="">Find my password</a>
+    </div>
+</ion-content>

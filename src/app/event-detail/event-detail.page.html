@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <div id="header">
+                Our Cultures - The App
+            </div>
+            <div id="navigation">
+                <a href="" class="navi-button">Home</a>
+                <a href="" class="navi-button">Popular Events</a>
+                <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
+                <ion-input id="searchBar" type="text" placeholder="search ..."></ion-input>
+            </div>
+
+        </ion-title>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="home"></ion-back-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <br>
+    <ion-grid style="width: 60%;" id="event-table">
+        <ion-row style="background-color: white; color: black;">
+            <ion-col style="margin-top: 10px;">Event Name</ion-col>
+            <ion-col style="margin-top: 10px;">Labour Day</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Date of Next Event: </ion-col>
+            <ion-col>September 5, 2022</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Same data every year: (If no, how is it calculated)</ion-col>
+            <ion-col>No</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Religious/Non-Religious?</ion-col>
+            <ion-col>No</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Type of Event</ion-col>
+            <ion-col>Statutory Holiday</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Where in Canada Observed</ion-col>
+            <ion-col>Observed across Canada. Schools and most businesses are closed</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Reasons</ion-col>
+            <ion-col>This holiday marks the change from summer vacation to the beginning of a new school year in September.</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>What do people do?</ion-col>
+            <ion-col>Many families with children return from holidays, and a new back-to-school seriousness sets in for September. People usually relax, have last-opportunity summer parties, and prepare for colder months of Fall and Winter season.</ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

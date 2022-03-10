@@ -1,20 +1,129 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            <div id="header">
+                Our Cultures - The App
+            </div>
+            <div id="navigation">
+                <a href="" class="navi-button">Home</a>
+                <a href="" class="navi-button">Popular Events</a>
+                <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
+                <ion-input id="searchBar" type="text" placeholder="search ..."></ion-input>
+            </div>
+
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <br>
+    <ion-grid style="width: 80%;">
+        <ion-row>
+            <ion-col size="8">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+                <div style="width:fit-content;margin: auto;">
+                    <ion-button color="dark">Monthly</ion-button>
+                    <ion-button color="dark">Weekly</ion-button>
+                </div>
+                <ion-grid id="calendar-table">
+                    <ion-row style="background-color: white; color: black;">
+                        <ion-col class="center" style="margin-top: 10px;">September</ion-col>
+                        <ion-col class="center">
+                            <ion-select interface="popover" placeholder="Oct" style="width: 90px; margin: auto; --placeholder-color: black; --placeholder-opacity: 1;">
+                                <ion-select-option>Jan</ion-select-option>
+                                <ion-select-option>Feb</ion-select-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col class="center">
+                            <ion-select interface="popover" placeholder="2022" style="width: 90px; margin: auto; --placeholder-color: black; --placeholder-opacity: 1;">
+                                <ion-select-option>2021</ion-select-option>
+                                <ion-select-option>2023</ion-select-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col class="center" style="margin-top: 10px;">November</ion-col>
+                    </ion-row>
+                    <ion-grid style="width: 80%;">
+                        <ion-row>
+                            <ion-col class="center">Sun</ion-col>
+                            <ion-col class="center">Mon</ion-col>
+                            <ion-col class="center">Tue</ion-col>
+                            <ion-col class="center">Wed</ion-col>
+                            <ion-col class="center">Thu</ion-col>
+                            <ion-col class="center">Fri</ion-col>
+                            <ion-col class="center">Sat</ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center">
+                                <p style="border-bottom: 2px solid rgb(67, 67, 199); width: 30px; margin: auto;">1</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">2</ion-col>
+                            <ion-col class="center">3</ion-col>
+                            <ion-col class="center">4</ion-col>
+                            <ion-col class="center">5</ion-col>
+                            <ion-col class="center">6</ion-col>
+                            <ion-col class="center">7</ion-col>
+                            <ion-col class="center">8</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">9</ion-col>
+                            <ion-col class="center">10</ion-col>
+                            <ion-col class="center">11</ion-col>
+                            <ion-col class="center">12</ion-col>
+                            <ion-col class="center">13</ion-col>
+                            <ion-col class="center">14</ion-col>
+                            <ion-col class="center">15</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">16</ion-col>
+                            <ion-col class="center">17</ion-col>
+                            <ion-col class="center">18</ion-col>
+                            <ion-col class="center">19</ion-col>
+                            <ion-col class="center">20</ion-col>
+                            <ion-col class="center">21</ion-col>
+                            <ion-col class="center">22</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">23</ion-col>
+                            <ion-col class="center">24</ion-col>
+                            <ion-col class="center">25</ion-col>
+                            <ion-col class="center">26</ion-col>
+                            <ion-col class="center">27</ion-col>
+                            <ion-col class="center">28</ion-col>
+                            <ion-col class="center">29</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">30</ion-col>
+                            <ion-col class="center">31</ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                            <ion-col class="center"></ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-grid>
+
+            </ion-col>
+            <ion-col size="4" style="padding-left: 20px;">
+                <b style="display:inline-block;margin-top: 10px; width: fit-content;"> Events in the coming week</b>
+                <ion-select interface="popover " placeholder="All events " style="width: 110px; margin: auto; --placeholder-color: white; --placeholder-opacity: 1; float: right; background-color: grey; ">
+                    <ion-select-option>2021</ion-select-option>
+                    <ion-select-option>2023</ion-select-option>
+                </ion-select>
+                <br>
+                <a [routerLink]="['/event-detail']">Oct 8 Milad un Nabi (Mawlid), Muslim</a> <br>
+                <a [routerLink]="['/event-detail']">Oct 10 First day of Sukkot, Jewish Holiday</a> <br>
+                <a [routerLink]="['/event-detail']">Oct 10 Thanksgiving Day, Statutory Holiday</a> <br>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
