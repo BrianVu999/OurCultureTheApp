@@ -37,5 +37,10 @@ export class HomePage {
         this.displaySearchableItems[key]=this.searchableItems[key]
       }
     }
+    
+    if(Object.keys(this.displaySearchableItems).length===0){
+      this.displaySearchableItems = {'Cannot find a matching event':''}
+    }
+
   }
 }
