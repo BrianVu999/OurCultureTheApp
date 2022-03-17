@@ -1,18 +1,22 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>
-            <div id="header">
-                Our Cultures - The App
+    <div>
+        <div id="header">
+            Our Cultures - The App
+        </div>
+        <div id="navigation">
+            <a href="" class="navi-button">Home</a>
+            <a href="" class="navi-button">Popular Events</a>
+            <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
+            <div id="searchBar">
+                <ion-searchbar [(ngModel)]="searchValue" (ngModelChange)="searchListener()" id="searchEventBar"></ion-searchbar>
+                <div class="ion-card" id="searchSuggestion">
+                    <a *ngFor="let i of displaySearchableItems | keyvalue" [routerLink]="['/'+i.value]">
+                        <div class="suggestedItems">{{ i.key }}</div>
+                    </a>
+                </div>
             </div>
-            <div id="navigation">
-                <a href="" class="navi-button">Home</a>
-                <a href="" class="navi-button">Popular Events</a>
-                <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
-                <ion-input id="searchBar" type="text" placeholder="search ..."></ion-input>
-            </div>
-
-        </ion-title>
-    </ion-toolbar>
+        </div>
+    </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -125,7 +129,7 @@
             </ion-col>
             <ion-col size="4" style="padding-left: 20px;">
                 <b style="display:inline-block;margin-top: 10px; width: fit-content;"> Events in the coming week</b>
-                <ion-select interface="popover " placeholder="All events " style="width: 110px; margin: auto; --placeholder-color: white; --placeholder-opacity: 1; float: right; background-color: grey; ">
+                <ion-select interface="popover" placeholder="All events " style="width: 110px; margin: auto; --placeholder-color: white; --placeholder-opacity: 1; float: right; background-color: grey; ">
                     <ion-select-option>Observance</ion-select-option>
                     <ion-select-option>Christian</ion-select-option>
                     <ion-select-option>Muslims</ion-select-option>
