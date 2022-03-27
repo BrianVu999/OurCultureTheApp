@@ -1,14 +1,6 @@
-<!-- NEED TO MAKE THE HEADER PART A SEPARATE COMPONENT WITH CSS AND JS -->
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" style="background-color: #222222;">
     <div>
-        <div id="header">
-            Our Cultures - The App
-        </div>
-        <div id="navigation">
-            <a href="" class="navi-button">Home</a>
-            <a href="" class="navi-button">Popular Events</a>
-            <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
-        </div>
+        <app-header></app-header>
     </div>
 </ion-header>
 

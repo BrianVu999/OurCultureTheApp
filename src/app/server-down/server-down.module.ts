@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ServerDownPageRoutingModule } from './server-down-routing.module';
 
 import { ServerDownPage } from './server-down.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ServerDownPageRoutingModule
+    ServerDownPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ServerDownPage]
 })
