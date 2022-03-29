@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
     'Oct 13 Thanksgiving Day, Statutory Holiday':'event-detail',
     'Oct 14 Thanksgiving Day, Statutory Holiday':'event-detail',
     'Oct 15 Thanksgiving Day, Statutory Holiday':'event-detail',
+    
   }
 
   displaySearchableItems:any = {}
@@ -34,7 +35,8 @@ export class HeaderComponent implements OnInit {
       return;
     }
 
-    //Find and display items drop-down list
+    //Find and display items drop-down list, 
+    //it will make database call in the future instead of search in an array for now
     for (const key in this.searchableItems) {
       //.replace(/ /g, "") to remove space
       if(key.replace(/ /g, "").toUpperCase().includes(this.searchValue.trim().replace(/ /g, "").toUpperCase())){
