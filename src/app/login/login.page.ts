@@ -34,6 +34,18 @@ export class LoginPage implements OnInit {
     } else {
       console.log(this.loginForm.value)
     }
+
+    if(this.loginForm.get('email').value=="test@test.com"&&this.loginForm.get('password').value=="123456789"){
+      this.alertActionLoginSuccessful()
+      
+    }
+    else if(this.loginForm.get('email').value=="new@test.com"){
+      this.alertActionLoginFaild() 
+    }
+    else{
+      this.alertActionFindYourPassword() 
+    }
+
   }
 
   //show alert when missing the required data
@@ -45,6 +57,48 @@ export class LoginPage implements OnInit {
       buttons:[
        {text:'Ok',
         handler:()=>{console.log('Please provide all the required values!');}
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async alertActionFindYourPassword() {
+    const alert = await this.alertControl.create({
+      header:'Alert',
+      subHeader:'',
+      message:'Password and username not Match',
+      buttons:[
+       {text:'Ok',
+        handler:()=>{console.log('Password and username not Match');}
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async alertActionLoginFaild() {
+    const alert = await this.alertControl.create({
+      header:'Alert',
+      subHeader:'',
+      message:'Please sign up',
+      buttons:[
+       {text:'Ok',
+        handler:()=>{console.log('Please sign up');}
+      }
+      ]
+    });
+    await alert.present();
+  }
+
+  async alertActionLoginSuccessful() {
+    const alert = await this.alertControl.create({
+      header:'',
+      subHeader:'',
+      message:'Welcome Back',
+      buttons:[
+       {text:'Ok',
+        handler:()=>{console.log('Welcome Back');}
       }
       ]
     });
