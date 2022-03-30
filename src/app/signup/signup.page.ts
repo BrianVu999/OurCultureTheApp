@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -21,13 +22,13 @@ export class SignupPage implements OnInit {
       { type: 'validPassword', message: 'Password Not Match.' }
     ]}
 
-  constructor(public formBuilder:FormBuilder,public alertControl:AlertController) { }
+  constructor(public formBuilder:FormBuilder,public alertControl:AlertController,private router: Router) { }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$]+$')]],
-      conpassword: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$]+$')]]
+      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]],
+      conpassword: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]]
     });
   }
   
@@ -47,6 +48,12 @@ export class SignupPage implements OnInit {
 
     if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
       this.alertActionForSetUp()
+      this.router.navigate(['login']).then(nav=>{
+        //this.router.navigate([currentUrl]);
+        console.log(nav);
+        location.reload();
+      },err=>{ console.log(err);
+      });
       
     }else{
       this.alertActionFaild() 

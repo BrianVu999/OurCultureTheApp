@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup
-  email =""
+  email = ""
   password = ""
   isSubmitted = false
 
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$]+$')]]
+      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]]
     })
   }
   get errorControl() {
