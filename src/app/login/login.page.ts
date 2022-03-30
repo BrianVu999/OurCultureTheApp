@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup
-  email =""
+  email = ""
   password = ""
   isSubmitted = false
 
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$]+$')]]
+      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]]
     })
   }
   get errorControl() {
@@ -29,22 +29,46 @@ export class LoginPage implements OnInit {
     //check the input
     this.isSubmitted = true;
     if (!this.loginForm.valid) {
-      this.alertAction()
+      this.alert("Please provide all the required values")
       return false;
     } else {
       console.log(this.loginForm.value)
     }
+
+    if(this.loginForm.get('email').value=="test@test.com"&&this.loginForm.get('password').value=="123456789"){
+      this.alertActionLoginSuccessful()
+    }
+    else if(this.loginForm.get('email').value=="new@test.com"){
+      this.alert("Please sign up") 
+    }
+    else{
+      this.alert("Password and username are not match") 
+    }
+
   }
 
-  //show alert when missing the required data
-  async alertAction() {
+async alert(msg:string) {
+  const alert = await this.alertControl.create({
+    header:'Alert',
+    subHeader:'',
+    message:msg,
+    buttons:[
+     {text:'Ok',
+      handler:()=>{console.log(msg);}
+    }
+    ]
+  });
+  await alert.present();
+}
+
+  async alertActionLoginSuccessful() {
     const alert = await this.alertControl.create({
-      header:'Alert',
+      header:'',
       subHeader:'',
-      message:'Please provide all the required values',
+      message:'Welcome Back',
       buttons:[
        {text:'Ok',
-        handler:()=>{console.log('Please provide all the required values!');}
+        handler:()=>{console.log('Welcome Back');}
       }
       ]
     });
