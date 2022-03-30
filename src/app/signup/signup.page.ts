@@ -40,7 +40,7 @@ export class SignupPage implements OnInit {
     //check the input
     this.isSubmitted = true;
     if (!this.signupForm.valid) {
-      this.alertAction()
+      this.alert("Please provide all the required values")
       return false;
     } else {
       console.log(this.signupForm.value)
@@ -56,19 +56,18 @@ export class SignupPage implements OnInit {
       });
       
     }else{
-      this.alertActionFaild() 
+      this.alert("Password not match, Please try again") 
     }
   }
 
-  //show alert when missing the required data
-  async alertAction() {
+  async alert(msg:string) {
     const alert = await this.alertControl.create({
       header:'Alert',
       subHeader:'',
-      message:'Please provide all the required values',
+      message:msg,
       buttons:[
        {text:'Ok',
-        handler:()=>{console.log('Please provide all the required values!');}
+        handler:()=>{console.log(msg);}
       }
       ]
     });
@@ -84,20 +83,6 @@ export class SignupPage implements OnInit {
       buttons:[
        {text:'Ok',
         handler:()=>{console.log('Sign up sccrssfully');}
-      }
-      ]
-    });
-    await alert.present();
-  }
-   //show alert
-   async alertActionFaild() {
-    const alert = await this.alertControl.create({
-      header:'Faild',
-      subHeader:'',
-      message:'Password not match, Please try again',
-      buttons:[
-       {text:'Ok',
-        handler:()=>{console.log('Sign up faild');}
       }
       ]
     });

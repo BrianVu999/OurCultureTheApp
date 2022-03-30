@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
     //check the input
     this.isSubmitted = true;
     if (!this.loginForm.valid) {
-      this.alertAction()
+      this.alert("Please provide all the required values")
       return false;
     } else {
       console.log(this.loginForm.value)
@@ -37,59 +37,29 @@ export class LoginPage implements OnInit {
 
     if(this.loginForm.get('email').value=="test@test.com"&&this.loginForm.get('password').value=="123456789"){
       this.alertActionLoginSuccessful()
-      
     }
     else if(this.loginForm.get('email').value=="new@test.com"){
-      this.alertActionLoginFaild() 
+      this.alert("Please sign up") 
     }
     else{
-      this.alertActionFindYourPassword() 
+      this.alert("Password and username are not match") 
     }
 
   }
 
-  //show alert when missing the required data
-  async alertAction() {
-    const alert = await this.alertControl.create({
-      header:'Alert',
-      subHeader:'',
-      message:'Please provide all the required values',
-      buttons:[
-       {text:'Ok',
-        handler:()=>{console.log('Please provide all the required values!');}
-      }
-      ]
-    });
-    await alert.present();
-  }
-
-  async alertActionFindYourPassword() {
-    const alert = await this.alertControl.create({
-      header:'Alert',
-      subHeader:'',
-      message:'Password and username not Match',
-      buttons:[
-       {text:'Ok',
-        handler:()=>{console.log('Password and username not Match');}
-      }
-      ]
-    });
-    await alert.present();
-  }
-
-  async alertActionLoginFaild() {
-    const alert = await this.alertControl.create({
-      header:'Alert',
-      subHeader:'',
-      message:'Please sign up',
-      buttons:[
-       {text:'Ok',
-        handler:()=>{console.log('Please sign up');}
-      }
-      ]
-    });
-    await alert.present();
-  }
+async alert(msg:string) {
+  const alert = await this.alertControl.create({
+    header:'Alert',
+    subHeader:'',
+    message:msg,
+    buttons:[
+     {text:'Ok',
+      handler:()=>{console.log(msg);}
+    }
+    ]
+  });
+  await alert.present();
+}
 
   async alertActionLoginSuccessful() {
     const alert = await this.alertControl.create({
