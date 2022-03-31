@@ -18,8 +18,11 @@
                 <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter password"></ion-input>
             </ion-item>
             <br>
-            <ion-button type="submit" color="primary" style="margin-right:50px;">Log in</ion-button>
-            <ion-button color="primary" [routerLink]="['/signup']" >Register</ion-button>
+
+            <ion-button type="submit" color="primary" (click)="submitForm()">Log in</ion-button>
+     <ion-button color="primary" style="float:right" [routerLink]="['/signup']" >Register</ion-button>
+           
+
         </form>
         <br><br>
         <a [routerLink]="['/findpassword']">Find my password</a>

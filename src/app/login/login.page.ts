@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginPage implements OnInit {
   password = ""
   isSubmitted = false
 
-  constructor(public formBuilder:FormBuilder,public alertControl:AlertController) { }
+  constructor(private router: Router,public formBuilder:FormBuilder,public alertControl:AlertController) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -36,13 +37,17 @@ export class LoginPage implements OnInit {
     }
 
     if(this.loginForm.get('email').value=="test@test.com"&&this.loginForm.get('password').value=="123456789"){
-      this.alertActionLoginSuccessful()
+      this.router.navigate(['contribution']);
+      this.alertActionLoginSuccessful();
+    
     }
     else if(this.loginForm.get('email').value=="new@test.com"){
       this.alert("oops! we could not find matching username.Please sign up.") 
     }
     else{
-      this.alert("oops! password doesn't not match username. If you have already signed up please click Find my password link.") 
+
+      this.alert("oops! password doesn't not match with username. If you have already signed up please click Find my password link.") 
+
     }
 
   }
@@ -68,7 +73,7 @@ async alert(msg:string) {
       message:'Welcome Back',
       buttons:[
        {text:'Ok',
-        handler:()=>{console.log('Welcome Back');}
+        handler:()=>{ console.log("Welcome") }
       }
       ]
     });
