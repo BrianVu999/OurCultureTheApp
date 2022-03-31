@@ -17,14 +17,18 @@
                 <ion-label position="stacked">Password</ion-label>
                 <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter password"></ion-input>
             </ion-item>
+
+            <div *ngIf="alertMessage">
+                <br>
+                <ion-text color="danger">{{alertMessage}}</ion-text>
+                <br>
+            </div>
             <br>
 
-            <ion-button type="submit" color="primary" (click)="submitForm()">Log in</ion-button>
-     <ion-button color="primary" style="float:right" [routerLink]="['/signup']" >Register</ion-button>
-           
-
+            <ion-button type="submit" color="primary" (click)="submitForm" style="float: left;">Log in</ion-button>
+            <ion-button color="primary" style="float:right" [routerLink]="['/signup']">Register</ion-button>
         </form>
-        <br><br>
+        <br><br><br>
         <a [routerLink]="['/findpassword']">Find my password</a>
     </div>
 </ion-content>
