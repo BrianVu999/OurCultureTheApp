@@ -18,8 +18,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]]
+      email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      password: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%$!]+$')]]
     })
   }
   get errorControl() {
@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
     //check the input
     this.isSubmitted = true;
     if (!this.loginForm.valid) {
-      this.alert("Please provide all the required values")
+      this.alert("Please provide required email address and password")
       return false;
     } else {
       console.log(this.loginForm.value)
@@ -42,10 +42,10 @@ export class LoginPage implements OnInit {
     
     }
     else if(this.loginForm.get('email').value=="new@test.com"){
-      this.alert("Please sign up") 
+      this.alert("oops! we could not find matching username.Please sign up.") 
     }
     else{
-      this.alert("Password and username doesn't match.") 
+      this.alert("oops! password doesn't not match with username. If you have already signed up please click Find my password link.") 
     }
 
   }
