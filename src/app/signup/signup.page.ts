@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 })
 export class SignupPage implements OnInit {
   signupForm: FormGroup
+  nickName=""
   email =""
   password = ""
   conpassword = ""
@@ -26,9 +27,10 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]],
-      conpassword: ['', [Validators.required, Validators.pattern('^[a-z0-9._%$!]+$')]]
+      nickName: ['', [Validators.required, Validators.pattern('[A-Za-z0-9_]+$')]],
+      email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      password: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%$!]+$')]],
+      conpassword: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%$!]+$')]]
     });
   }
   
@@ -40,13 +42,16 @@ export class SignupPage implements OnInit {
     //check the input
     this.isSubmitted = true;
     if (!this.signupForm.valid) {
-      this.alert("Please provide all the required values")
+      this.alert("Please provide reqiured information")
       return false;
     } else {
       console.log(this.signupForm.value)
     }
 
-    if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
+    if(this.signupForm.get('email').value=="test@test.com"){
+      this.alert("This email has existed in the system, please go to login page.")
+    }
+    else if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
       this.alertActionForSetUp()
       this.router.navigate(['login']).then(nav=>{
         //this.router.navigate([currentUrl]);
@@ -56,7 +61,7 @@ export class SignupPage implements OnInit {
       });
       
     }else{
-      this.alert("Password not match, Please try again") 
+      this.alert("oops! Please make sure your input passwords match!") 
     }
   }
 
@@ -77,7 +82,7 @@ export class SignupPage implements OnInit {
   //show alert
   async alertActionForSetUp() {
     const alert = await this.alertControl.create({
-      header:'Congratulation',
+      header:'Welcome, Doris',
       subHeader:'',
       message:'You have signed up sccrssfully',
       buttons:[
