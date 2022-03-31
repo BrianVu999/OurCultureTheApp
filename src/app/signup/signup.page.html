@@ -7,8 +7,13 @@
 
 <ion-content [fullscreen]="true">
   <br><br>
-  <div style="width: fit-content; margin: auto;">
+  <div style="width: fit-content; margin: auto;text-align: center;">
       <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
+
+          <ion-item style="width: 400px;">
+              <ion-label position="stacked">Nick Name</ion-label>
+              <ion-input minlength="1" formControlName="nickName" type="nickName" required placeholder="Nick name"></ion-input>
+          </ion-item>
           <ion-item style="width: 400px;">
               <ion-label position="stacked">Email</ion-label>
               <ion-input minlength="6" formControlName="email" type="email" required placeholder="Enter email"></ion-input>
@@ -23,9 +28,10 @@
             <ion-input minlength="8" formControlName="conpassword" type="password" required placeholder="Confirm password"></ion-input>
         </ion-item>
           <br>
-          <ion-button type="submit" color="primary" style="float:right">Register</ion-button>
+          <br>
+          <ion-button type="submit" color="primary">Register</ion-button>
       </form>
       <br><br>
-      <a href="">Find my password</a>
+      <a [routerLink]="['/findpassword']">Find my password</a>
   </div>
 </ion-content>
