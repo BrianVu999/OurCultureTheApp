@@ -45,7 +45,9 @@ export class LoginPage implements OnInit {
       this.alert("oops! we could not find matching username.Please sign up.") 
     }
     else{
+
       this.alert("oops! password doesn't not match with username. If you have already signed up please click Find my password link.") 
+
     }
 
   }
