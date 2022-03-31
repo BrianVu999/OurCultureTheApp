@@ -17,9 +17,11 @@ export class ContributionPage implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      comments: ['', [Validators.required]],
       date: ['', [Validators.required]],
       type: ['', [Validators.required]],
+      religious: ['', [Validators.required]],
+      same: ['', [Validators.required]],
+      reason: ['', [Validators.required]]
     }) 
   }
 
