@@ -7,7 +7,7 @@
 
 <ion-content [fullscreen]="true">
     <br><br>
-    <div style="width: fit-content; margin: auto;">
+    <div style="width: fit-content; margin: auto;text-align: center;">
         <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
             <ion-item style="width: 400px;">
                 <ion-label position="stacked">Email</ion-label>
@@ -18,11 +18,10 @@
                 <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter password"></ion-input>
             </ion-item>
             <br>
-            <ion-button type="submit" color="primary" [routerLink]="['/contribution']">Log in</ion-button>
-     <ion-button color="primary" style="float:right" [routerLink]="['/signup']" >Register</ion-button>
-           
+            <ion-button type="submit" color="primary" style="margin-right:50px;" [routerLink]="['/contribution']">Log in</ion-button>
+            <ion-button color="primary" [routerLink]="['/signup']">Register</ion-button>
         </form>
         <br><br>
-        <a href="">Find my password</a>
+        <a [routerLink]="['/findpassword']">Find my password</a>
     </div>
 </ion-content>
