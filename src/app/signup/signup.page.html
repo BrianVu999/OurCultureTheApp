@@ -1,37 +1,41 @@
 <ion-header [translucent]="true" style="background-color: #ADD8E6">
-  <div>
-      <app-header></app-header>
-  </div>
+    <div>
+        <app-header></app-header>
+    </div>
 </ion-header>
 
 
 <ion-content [fullscreen]="true">
-  <br><br>
-  <div style="width: fit-content; margin: auto;text-align: center;">
-      <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
+    <br><br>
+    <div style="width: fit-content; margin: auto;text-align: center;">
+        <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
 
-          <ion-item style="width: 400px;">
-              <ion-label position="stacked">Nick Name</ion-label>
-              <ion-input minlength="1" formControlName="nickName" type="nickName" required placeholder="Nick name"></ion-input>
-          </ion-item>
-          <ion-item style="width: 400px;">
-              <ion-label position="stacked">Email</ion-label>
-              <ion-input minlength="6" formControlName="email" type="email" required placeholder="Enter email"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter password"></ion-input>
-          </ion-item>
+            <ion-item style="width: 400px;">
+                <ion-label position="stacked">Name</ion-label>
+                <ion-input minlength="1" formControlName="name" required placeholder="Enter your full name"></ion-input>
+            </ion-item>
+            <ion-item style="width: 400px;">
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input minlength="6" formControlName="email" type="email" required placeholder="Enter your email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Password</ion-label>
+                <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter your email password"></ion-input>
+            </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Confirm Password</ion-label>
-            <ion-input minlength="8" formControlName="conpassword" type="password" required placeholder="Confirm password"></ion-input>
-        </ion-item>
-          <br>
-          <br>
-          <ion-button type="submit" color="primary">Register</ion-button>
-      </form>
-      <br><br>
-      <a [routerLink]="['/findpassword']">Find my password</a>
-  </div>
+            <ion-item>
+                <ion-label position="stacked">Confirm Password</ion-label>
+                <ion-input minlength="8" formControlName="conpassword" type="password" required placeholder="Confirm password"></ion-input>
+            </ion-item>
+            <div *ngIf="alertMessage">
+                <br>
+                <ion-text color="danger">{{alertMessage}}</ion-text>
+                <br>
+            </div>
+            <br>
+            <ion-button type="submit" color="primary">Register</ion-button>
+        </form>
+        <br><br>
+        <a [routerLink]="['/findpassword']">Find my password</a>
+    </div>
 </ion-content>

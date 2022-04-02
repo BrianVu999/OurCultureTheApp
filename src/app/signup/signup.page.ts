@@ -11,11 +11,12 @@ import {Router} from '@angular/router';
 })
 export class SignupPage implements OnInit {
   signupForm: FormGroup
-  nickName=""
+  name=""
   email =""
   password = ""
   conpassword = ""
   isSubmitted = false
+  alertMessage = ""
 
   validation_messages = {
     'password': [
@@ -27,7 +28,7 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      nickName: ['', [Validators.required, Validators.pattern('[A-Za-z0-9_]+$')]],
+      name: ['', [Validators.required, Validators.pattern('[A-Za-z0-9_]+$')]],
       email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%$!]+$')]],
       conpassword: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9._%$!]+$')]]
@@ -41,53 +42,43 @@ export class SignupPage implements OnInit {
   submitForm() {
     //check the input
     this.isSubmitted = true;
-    if (!this.signupForm.valid) {
-      this.alert("Please provide reqiured information")
-      return false;
-    } else {
-      console.log(this.signupForm.value)
-    }
 
-    if(this.signupForm.get('email').value=="test@test.com"){
-      this.alert("This email has existed in the system, please go to login page.")
+    if(
+      this.signupForm.get('name').value === "" ||
+      this.signupForm.get('email').value === "" ||
+      this.signupForm.get('password').value === "" ||
+      this.signupForm.get('conpassword').value === ""
+    ){
+      this.alertMessage = "Please enter all required fields!";
+    }
+    else if (!this.signupForm.valid) {
+      this.alertMessage = "Please enter valid input!";
+    }
+    else if(this.signupForm.get('email').value=="test@test.com"){
+      this.alertMessage = "This email has already been registered"
+    }
+    else if(this.signupForm.get('conpassword').value!==this.signupForm.get('password').value){
+      this.alertMessage = "The passwords entered do not match!"
     }
     else if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
-      this.alertActionForSetUp()
       this.router.navigate(['login']).then(nav=>{
         //this.router.navigate([currentUrl]);
         console.log(nav);
-        location.reload();
+        // location.reload();
+        this.alert("", "You have signed up successfully")
       },err=>{ console.log(err);
       });
-      
-    }else{
-      this.alert("oops! Please make sure your input passwords match!") 
     }
   }
 
-  async alert(msg:string) {
+  async alert(header:string ,msg:string) {
     const alert = await this.alertControl.create({
-      header:'Alert',
+      header:header,
       subHeader:'',
       message:msg,
       buttons:[
        {text:'Ok',
         handler:()=>{console.log(msg);}
-      }
-      ]
-    });
-    await alert.present();
-  }
-
-  //show alert
-  async alertActionForSetUp() {
-    const alert = await this.alertControl.create({
-      header:'Welcome, Doris',
-      subHeader:'',
-      message:'You have signed up sccrssfully',
-      buttons:[
-       {text:'Ok',
-        handler:()=>{console.log('Sign up sccrssfully');}
       }
       ]
     });
