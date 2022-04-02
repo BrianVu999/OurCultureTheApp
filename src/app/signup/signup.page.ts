@@ -61,24 +61,25 @@ export class SignupPage implements OnInit {
       this.alertMessage = "The passwords entered do not match!"
     }
     else if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
-      this.router.navigate(['login']).then(nav=>{
-        //this.router.navigate([currentUrl]);
-        console.log(nav);
-        // location.reload();
-        this.alert("", "You have signed up successfully")
-      },err=>{ console.log(err);
-      });
+      this.displaySignupSuccess("", "You have signed up successfully")
     }
   }
 
-  async alert(header:string ,msg:string) {
+  async displaySignupSuccess(header:string ,msg:string) {
     const alert = await this.alertControl.create({
       header:header,
       subHeader:'',
       message:msg,
       buttons:[
        {text:'Ok',
-        handler:()=>{console.log(msg);}
+        handler:()=>{
+          this.router.navigate(['login']).then(nav=>{
+            //this.router.navigate([currentUrl]);
+            console.log(nav)
+            location.reload();
+          },err=>{ console.log(err)
+          });
+        }
       }
       ]
     });
