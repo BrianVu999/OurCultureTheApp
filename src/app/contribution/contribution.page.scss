@@ -37,7 +37,6 @@ ion-item{
 
    #form {
     display: flex;
-    
   flex-wrap: wrap;
   margin:auto;
   padding:2%;
@@ -45,7 +44,7 @@ ion-item{
   }
 
  div{
-    background-color: rgba(168, 124, 240, 0.432);
+    background-color: rgba(241, 237, 237, 0.432);
   }
 
 
@@ -111,4 +110,9 @@ button:active {
   background-color: #6000fa;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
+}
+
+#form  > .c{
+  flex: 60% !important;
+   
 }

@@ -6,7 +6,7 @@
 <ion-content>
 <div>
   
-  <form [formGroup]="loginForm"  id="form" novalidate>
+  <form [formGroup]="contributeForm" (ngSubmit)="submitForm()" id="form" novalidate>
     <ion-item>
       <ion-label position="stacked" >Event name *</ion-label>
         <ion-input  formControlName="name" required placeholder="Enter the event name"></ion-input>
@@ -20,7 +20,7 @@
     
     <ion-item>
       <ion-label position="stacked">Same date every year? *</ion-label>
-      <ion-select   required placeholder="Select One">
+      <ion-select   formControlName="same" required placeholder="Select One">
         <ion-select-option value="yes">Yes</ion-select-option>
         <ion-select-option value="no">No</ion-select-option>
         <ion-select-option value="don't">I don't know</ion-select-option>
@@ -29,14 +29,14 @@
 
     
     <ion-item>
-      <ion-label position="stacked">If not, how is it determined every year? </ion-label>
-      <ion-textarea placeholder="Type here.."></ion-textarea>
+      <ion-label position="stacked">If not, how is it determined every year?(10-60 words) </ion-label>
+      <ion-textarea minlength="10" maxlength="60" placeholder="Type here.."></ion-textarea>
     </ion-item>
 
 
     <ion-item>
       <ion-label position="stacked">Religious/Non-religious *</ion-label>
-      <ion-select   required placeholder="Select One">
+      <ion-select formControlName="religious"  required placeholder="Select One">
         <ion-select-option value="1">Non-Religious</ion-select-option>
         <ion-select-option value="2">Baha'i</ion-select-option>
         <ion-select-option value="3">Buddhism</ion-select-option>
@@ -52,7 +52,7 @@
 
     <ion-item>
       <ion-label position="stacked">Type of event *</ion-label>
-      <ion-select   required placeholder="Select One">
+      <ion-select  formControlName="type" required placeholder="Select One">
         <ion-select-option value="a">Celebration</ion-select-option>
         <ion-select-option value="b">Local Holiday</ion-select-option>
         <ion-select-option value="c">Statutory Holiday</ion-select-option>
@@ -66,23 +66,23 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Reason *</ion-label>
-      <ion-textarea required placeholder="Type here.."></ion-textarea>
+      <ion-label position="stacked">Reason(20-200 words) *</ion-label>
+      <ion-textarea minlength="20" maxlength="200" formControlName="reason" required placeholder="Type here.."></ion-textarea>
     </ion-item>
 
 
     
 
         <ion-item>
-          <ion-label position="stacked">What do people do? *</ion-label>
-          <ion-textarea  required placeholder="Type here.."></ion-textarea>
+          <ion-label position="stacked">What do people do?(20-200 words) *</ion-label>
+          <ion-textarea minlength="20" maxlength="200" formControlName="ritual" required placeholder="Type here.."></ion-textarea>
         </ion-item>
 
       
 
         <ion-item>
-          <ion-label position="stacked">Searchable terms </ion-label>
-          <ion-textarea placeholder="Type here.."></ion-textarea>
+          <ion-label position="stacked">Searchable terms(0-30 words) </ion-label>
+          <ion-textarea  maxlength="30" placeholder="Type here.."></ion-textarea>
         </ion-item>
  
         <!-- <ion-item>
@@ -113,11 +113,20 @@
         </ion-item> -->
         
     
+<br>
+        <div class="c" *ngIf="alertMessage">
+          <br>
+          <ion-text color="danger"><b>{{alertMessage}}</b></ion-text>
+          <br>
+      </div>
+      <br>
 
+      
+ <button class= "c" type="submit" >Submit</button>
+     
+  </form>
   
 
-  </form>
-  <button type="submit" >Submit</button>
 </div>
 
 </ion-content>
