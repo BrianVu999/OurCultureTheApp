@@ -1,3 +1,9 @@
+ion-content {
+    justify-content: center;
+    background-color: azure;
+    --background: url(../../assets/IMG_7535.PNG);
+}
+
 #container {
     text-align: center;
     position: absolute;
@@ -33,4 +39,15 @@
 
 a {
     text-decoration: none;
+}
+
+ion-calendar {
+    font-weight: bold;
+    width: 90%;
+    text-align: center;
+    font-size: 15px;
+    padding: 1%; 
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: lightcyan;
 }

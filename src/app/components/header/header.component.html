@@ -1,16 +1,30 @@
-<div id="header">
-    Our Culture's - The app
-</div>
-<div id="navigation">
-    <a href="" class="navi-button">Home</a>
-    <a href="" class="navi-button">Popular Events</a>
-    <a href="" class="navi-button" [routerLink]="['/login']">Contribute</a>
-    <div id="searchBar">
-        <ion-searchbar [(ngModel)]="searchValue" (ngModelChange)="searchListener()" id="searchEventBar" (ionClear)="clearlBtnClick()" ngDefaultControl></ion-searchbar>
-        <div class="ion-card" id="searchSuggestion">
-            <a *ngFor="let i of displaySearchableItems | keyvalue" [routerLink]="['/'+i.value]">
-                <div class="suggestedItems">{{ i.key }}</div>
-            </a>
+<div id="all">
+    <div id="header" class="header">
+        Our Culture's - The App
+    </div>
+    <div id="navigation">
+
+        <div id="searchBar">
+            <ion-searchbar [(ngModel)]="searchValue" (ngModelChange)="searchListener()" id="searchEventBar"
+                (ionClear)="clearlBtnClick()" ngDefaultControl>
+            </ion-searchbar>
+            <div class="ion-card" id="searchSuggestion">
+                <a *ngFor="let i of displaySearchableItems | keyvalue" [routerLink]="['/'+i.value]">
+                    <div class="suggestedItems">{{ i.key }}</div>
+                </a>
+            </div>
+        </div>
+
+        <div id="link" style="display: flex; text-align: center;font-size: 16px; font-weight: bold;text-decoration: underline;">
+            <div style="width:20%;"> 
+                <a href="" class="navi-button" style="color: black;">Home</a>
+            </div>
+            <div style="width:50%;">
+                <a href="" class="navi-button" style="color: black;">Popular Events</a>
+            </div>
+            <div style="width:30%;">
+                <a href="" class="navi-button" [routerLink]="['/login']" style="color: black;">Contribute</a>
+            </div>
         </div>
     </div>
 </div>

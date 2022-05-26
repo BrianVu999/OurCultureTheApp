@@ -10,32 +10,41 @@
     <div style="width: fit-content; margin: auto;text-align: center;">
         <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
 
-            <ion-item style="width: 400px;">
-                <ion-label position="stacked">Name</ion-label>
-                <ion-input minlength="1" formControlName="name" required placeholder="Enter your full name"></ion-input>
+            <ion-item style="width:90%;margin-left: 2%;">
+                <ion-label position="float">Name</ion-label>
+                <ion-input minlength="1" formControlName="name" required></ion-input>
             </ion-item>
-            <ion-item style="width: 400px;">
-                <ion-label position="stacked">Email</ion-label>
-                <ion-input minlength="6" formControlName="email" type="email" required placeholder="Enter your email"></ion-input>
+            <ion-item style="width:90%;margin-left: 2%;">
+                <ion-label position="float">Email</ion-label>
+                <ion-input minlength="6" formControlName="email" type="email" required>
+                </ion-input>
             </ion-item>
-            <ion-item>
-                <ion-label position="stacked">Password</ion-label>
-                <ion-input minlength="8" formControlName="password" type="password" required placeholder="Enter your email password"></ion-input>
+            <ion-item style="width:90%;margin-left: 2%;">
+                <ion-label position="float">Password</ion-label>
+                <ion-input minlength="8" formControlName="password" type="password" required>
+                </ion-input>
             </ion-item>
 
-            <ion-item>
-                <ion-label position="stacked">Confirm Password</ion-label>
-                <ion-input minlength="8" formControlName="conpassword" type="password" required placeholder="Confirm password"></ion-input>
+            <ion-item style="width:90%;margin-left: 2%;">
+                <ion-label position="float">Confirm Password</ion-label>
+                <ion-input minlength="8" formControlName="conpassword" type="password" required>
+                </ion-input>
             </ion-item>
             <div *ngIf="alertMessage">
                 <br>
-                <ion-text color="danger">{{alertMessage}}</ion-text>
+                <ion-text color="danger">
+                    <h6>{{alertMessage}}</h6>
+                </ion-text>
                 <br>
             </div>
             <br>
-            <ion-button type="submit" color="primary">Register</ion-button>
+            <ion-row style="margin-left: 35%;">
+                <ion-button type="submit" color="secondary" size="small">Register</ion-button>
+            </ion-row>
         </form>
         <br><br>
-        <a [routerLink]="['/findpassword']">Find my password</a>
+        <ion-row style="margin-left: 30%;">
+            <a [routerLink]="['/findpassword']">Find my password</a>
+        </ion-row>
     </div>
 </ion-content>
