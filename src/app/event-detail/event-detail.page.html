@@ -6,40 +6,57 @@
 
 
 <ion-content [fullscreen]="true">
-    <br>
-    <ion-grid style="width: 60%;" id="event-table">
-        <ion-row style="background-color: white; color: black;">
-            <ion-col style="margin-top: 10px;">Event Name</ion-col>
-            <ion-col style="margin-top: 10px;">Labour Day</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Date of Next Event: </ion-col>
-            <ion-col>September 5, 2022</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Same data every year: (If no, how is it calculated)</ion-col>
-            <ion-col>No</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Religious/Non-Religious?</ion-col>
-            <ion-col>No</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Type of Event</ion-col>
-            <ion-col>Statutory Holiday</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Where in Canada Observed</ion-col>
-            <ion-col>Observed across Canada. Schools and most businesses are closed</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Reasons</ion-col>
-            <ion-col>This holiday marks the change from summer vacation to the beginning of a new school year in September.</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>What do people do?</ion-col>
-            <ion-col>Many families with children return from holidays, and a new back-to-school seriousness sets in for September. People usually relax, have last-opportunity summer parties, and prepare for colder months of Fall and Winter season.</ion-col>
-        </ion-row>
+    <ion-grid style="width: 95%;">
+        <ion-list>
+            <ion-list-header class="ion-text-center">
+                <h2>Event: Labour Day</h2>
+            </ion-list-header>
+            <ion-item>
+                <ion-label>
+                    <h2>Date of Next Event:</h2>
+                    <p>September 5, 2022</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Same data every year: (If no, how is it calculated):</h2>
+                    <p>No</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Religious/Non-Religious?</h2>
+                    <p>No</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>Type of Event:</h2>
+                    <p>Statutory Holiday</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="ion-text-wrap">
+                    <h2>Where in Canada Observed:</h2>
+                    <p>Observed across Canada. Schools and most businesses are closed.</p>
+                </ion-label>
+                
+            </ion-item>
+            <ion-item>
+                <ion-label class="ion-text-wrap">
+                    <h2>Reasons:</h2>
+                    <p>This holiday marks the change from summer vacation to the beginning of a new school year in
+                        September.</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="ion-text-wrap">
+                    <h2>What do people do?</h2>
+                    <p> Many families with children return from holidays, and a new back-to-school seriousness sets in for
+                        September. People usually relax, have last-opportunity summer parties, and prepare for colder months
+                        of Fall and Winter season.</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
     </ion-grid>
-
 </ion-content>
