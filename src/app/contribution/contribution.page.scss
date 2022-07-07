@@ -3,8 +3,7 @@ ion-content{
     display:grid; 
     align-items: center; 
     justify-content: center;
-   --background: url(../../assets/image.jpg);
-   text-align: center;
+    text-align: center;
 }
 
 ion-item{
@@ -36,7 +35,7 @@ ion-item{
   }  */
 
    #form {
-    display: flex;
+  display: flex;
     
   flex-wrap: wrap;
   margin:auto;
@@ -44,16 +43,13 @@ ion-item{
  
   }
 
- div{
-    background-color: rgba(168, 124, 240, 0.432);
-  }
-
 
   #form > ion-item {
     flex: 40%; 
     margin-top: 10px;
     margin-left:5%; 
-    margin-right:5%
+    margin-right:5%;
+    width:93%;
   } 
   
   /* Responsive layout - makes a one column layout instead of a two-column layout */
@@ -70,7 +66,6 @@ ion-item{
 button {
   align-items: center;
   background-clip: padding-box;
-  background-color: #6000fa;
   border: 1px solid transparent;
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;

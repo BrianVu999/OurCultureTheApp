@@ -3,13 +3,13 @@
         <app-header></app-header>
     </div>
 </ion-header>
-
 <ion-content [fullscreen]="true" id="all">
 
     <div style="margin: auto; text-align: center;padding: 3%;">
         <ion-button color="secondary" size="small">Monthly</ion-button>
         <ion-button color="secondary" size="small">Weekly</ion-button>
     </div>
+
     <div style="text-align: center;">
         <ion-calendar [(ngModel)]="dateRange" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'">
         </ion-calendar>
@@ -18,12 +18,12 @@
 
     <ion-row style="margin-left: 3%;">
         <ion-col>
-            <h6 style="display:inline-block; width: 140%;"> Coming Week Events
-            </h6>
+            <p style="display:inline-block; width: 140%;font-size: 14px;font-weight: bold;"> Coming Week Events
+            </p>
         </ion-col>
         <ion-col>
             <ion-select interface="popover" placeholder="All Events" style="width: 80%; margin: auto; --placeholder-color: black; --placeholder-opacity: 1; 
-                float: right; font-size: smaller;border-radius: 5px;margin-right: 1%;background-color: lightskyblue;">
+                float: right; font-size: 12px;border-radius: 5px;margin-right: 1%;background-color: lightskyblue;">
                 <ion-select-option>Observance</ion-select-option>
                 <ion-select-option>Christian</ion-select-option>
                 <ion-select-option>Muslims</ion-select-option>
@@ -43,8 +43,4 @@
         <p><a [routerLink]="['/event-detail']" style="color:#37474f;">Oct 10 Thanksgiving Day, Statutory Holiday</a>
         </p>
     </ion-row>
-
-
-
-
 </ion-content>

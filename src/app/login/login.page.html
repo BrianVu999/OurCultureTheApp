@@ -5,37 +5,42 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
-    <br><br>
-    <div style="width: fit-content; margin: auto;text-align: center;">
-        <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
-            <ion-item style="width: 95%;">
-                <ion-label position="float">Email</ion-label>
-                <ion-input minlength="6" formControlName="email" type="email" required></ion-input>
-            </ion-item>
-            <ion-item style="width: 95%;">
-                <ion-label position="float">Password</ion-label>
-                <ion-input minlength="8" formControlName="password" type="password" required></ion-input>
-            </ion-item>
+<ion-content  [translucent]="true" style="background-color: #ADD8E6;">
+    <div>
+        <br><br>
+        <div
+            style="width: fit-content; margin-left: 2.5%;text-align: center;">
+            <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+                <ion-item style="width: 95%;">
+                    <ion-label position="float">Email</ion-label>
+                    <ion-input minlength="6" formControlName="email" type="email" required></ion-input>
+                </ion-item>
+                <ion-item style="width: 95%;">
+                    <ion-label position="float">Password</ion-label>
+                    <ion-input minlength="8" formControlName="password" type="password" required></ion-input>
+                </ion-item>
 
-            <div *ngIf="alertMessage" >
-                <br>
-                <ion-text color="danger">
-                    <h6>{{alertMessage}}</h6>
-                </ion-text>
-                <br>
-            </div>
+                <div *ngIf="alertMessage">
+                    <br>
+                    <ion-text color="danger">
+                        <h6>{{alertMessage}}</h6>
+                    </ion-text>
+                    <br>
+                </div>
 
+                <br>
+                <ion-row style="margin-left: 15%;">
+                    <ion-button type="submit" color="secondary" size="small" (click)="submitForm" style="width: 40%;">
+                        Log in</ion-button>
+                    <ion-button color="secondary" [routerLink]="['/signup']" size="small" style="width: 40%;">Register
+                    </ion-button>
+                </ion-row>
+            </form>
             <br>
-            <ion-row style="margin-left: 20%;">
-                <ion-button type="submit" color="secondary" size="small" (click)="submitForm" style="width: 40%;">Log in</ion-button>
-                <ion-button color="secondary" [routerLink]="['/signup']" size="small" style="width: 40%;">Register</ion-button>
+            <ion-row style="margin-left: 30%;">
+                <a [routerLink]="['/findpassword']">Find my password</a>
             </ion-row>
-        </form>
-        <br>
-        <ion-row style="margin-left: 30%;">
-            <a [routerLink]="['/findpassword']">Find my password</a>
-        </ion-row>
-        
+
+        </div>
     </div>
 </ion-content>
