@@ -1,7 +1,5 @@
 ion-content {
     justify-content: center;
-    background-color: azure;
-    --background: url(../../assets/IMG_7535.PNG);
 }
 
 #container {
@@ -46,8 +44,55 @@ ion-calendar {
     width: 90%;
     text-align: center;
     font-size: 15px;
-    padding: 1%; 
+    padding: 1%;
     margin-bottom: 5px;
     margin-top: 5px;
     background-color: lightcyan;
+    color: #222222;
 }
+
+.selector {
+    width: 80%;
+    margin: auto;
+    --placeholder-color: black;
+    --placeholder-opacity: 1;
+    float: right;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-right: 1%;
+    background-color: lightskyblue;
+}
+
+#selector {
+    display: inline-block;
+    width: 140%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.viewButtonDiv {
+    margin: auto;
+    text-align: center;
+    padding: 3%;
+}
+
+.eventList {
+    font-size: smaller;
+    margin-left: 5%;
+    color: #37474f;
+}
+
+a {
+    color: #37474f;
+    font-size: smaller;
+    margin-left: 10px;
+}
+
+a:hover {
+    font-weight: 600;
+}
+ion-button:hover {
+    transform: translateY(0);
+  }
+
+  
