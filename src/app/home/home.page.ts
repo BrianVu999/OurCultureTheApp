@@ -28,9 +28,8 @@ export class HomePage implements OnInit{
     console.log($event);
   }
 
-
   constructor(
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
   ) { }
   
   ngOnInit() {

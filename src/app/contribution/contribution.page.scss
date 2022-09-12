@@ -88,11 +88,14 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  width: auto;
+  background-color: #42A5F5;
+  text-align: center;
+  width: 30%;
+  margin-left: 35%;
 }
 
 button:hover {
-    background-color: black;
+    background-color: #311B92;
     color: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
