@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "festival-form-app": {
+      "hosting": {
+        "app": [
+          "ourculturetheapp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "festival-form-app"
+  }
+}
