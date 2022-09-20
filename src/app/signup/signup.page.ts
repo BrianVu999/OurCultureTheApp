@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import {Router} from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -24,7 +25,14 @@ export class SignupPage implements OnInit {
       { type: 'validPassword', message: 'Password Not Match.' }
     ]}
 
-  constructor(public formBuilder:FormBuilder,public alertControl:AlertController,private router: Router) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    public formBuilder:FormBuilder,
+    public alertControl:AlertController,private router: Router) {
+      this.authenticationService.errorMsg.subscribe((msg) => {
+        this.alertMessage = msg;
+      });
+    }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -39,7 +47,7 @@ export class SignupPage implements OnInit {
     return this.signupForm.controls;
   }
 
-  submitForm() {
+  async submitForm() {
     //check the input
     this.isSubmitted = true;
 
@@ -54,14 +62,14 @@ export class SignupPage implements OnInit {
     else if (!this.signupForm.valid) {
       this.alertMessage = "Please enter valid input!";
     }
-    else if(this.signupForm.get('email').value=="test@test.com"){
-      this.alertMessage = "This email has already been registered"
-    }
-    else if(this.signupForm.get('conpassword').value!==this.signupForm.get('password').value){
-      this.alertMessage = "The passwords entered do not match!"
-    }
-    else if(this.signupForm.get('conpassword').value==this.signupForm.get('password').value){
-      this.displaySignupSuccess("", "You have signed up successfully")
+    else if(
+      await this.authenticationService.SignUp(
+        this.signupForm.get('email').value,
+        this.signupForm.get('password').value
+      )
+    ){
+      this.router.navigate(['contribution']);
+      this.displaySignupSuccess("", "You have signed up successfully");
     }
   }
 

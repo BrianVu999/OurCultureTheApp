@@ -17,24 +17,25 @@ export class AuthenticationService {
   }
 
   /* Sign up */
-  SignUp(email: string, password: string) {
-    this.angularFireAuth
+  async SignUp(email: string, password: string) {
+    let result = false;
+    await this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
         console.log('You are Successfully signed up!', res);
-        return true;
+        result = true;
       })
       .catch((error) => {
-        this.errorMsg = error.message;
+        this.errorMsg.next('Your account is already existed!');
         console.log(error.code);
-        return false
       });
+    return result;
   }
 
   /* Sign in */
-  async SignIn(email: string, password: string) :Promise<boolean> {
+  async SignIn(email: string, password: string): Promise<boolean> {
     let result = false;
-     await this.angularFireAuth
+    await this.angularFireAuth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
         console.log("You're in!");
@@ -42,14 +43,13 @@ export class AuthenticationService {
         result = true;
       })
       .catch((error) => {
-        if(error.code == "auth/user-not-found"){
-          this.errorMsg.next("Your account is not existed");
-        }
-        else{
-          this.errorMsg.next("Your password is wrong!");
+        if (error.code == 'auth/user-not-found') {
+          this.errorMsg.next('Your account is not existed!');
+        } else {
+          this.errorMsg.next('Your password is wrong!');
         }
       });
-      return result
+    return result;
   }
 
   /* Sign out */
