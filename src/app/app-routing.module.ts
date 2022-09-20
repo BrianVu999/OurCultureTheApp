@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'findpassword',
     loadChildren: () => import('./findpassword/findpassword.module').then( m => m.FindpasswordPageModule)
+  },
+  {
+    path: 'cal-modal',
+    loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
   }
 
 

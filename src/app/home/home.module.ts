@@ -6,9 +6,12 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { ComponentsModule } from '../components/components.module';
-import { CalendarModule } from 'ion2-calendar';
+import { NgCalendarModule  } from 'ionic2-calendar';
+import { CalModalPageModule } from '../pages/cal-modal/cal-modal.module';
 
-
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe);
 
 @NgModule({
   imports: [
@@ -16,11 +19,13 @@ import { CalendarModule } from 'ion2-calendar';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule,
-    ReactiveFormsModule,
-    CalendarModule
+    NgCalendarModule,
+    CalModalPageModule,
+    ComponentsModule
   ],
   declarations: [HomePage],
-  providers: [{ provide: LOCALE_ID, useValue: 'ca-EN' }]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'en-CA' }
+  ]
 })
 export class HomePageModule {}
