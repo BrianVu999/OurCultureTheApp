@@ -3,43 +3,117 @@
         <app-header></app-header>
     </div>
 </ion-header>
-<ion-content [fullscreen]="true" id="all">
 
-    <div class="viewButtonDiv">
-        <ion-button color="secondary" size="small">Monthly</ion-button>
-        <ion-button color="secondary" size="small">Weekly</ion-button>
+<ion-content>
+<br>
+    
+    <!-- To add an event to the calendar
+        <div>
+        <ion-buttons slot="end">
+            <ion-button (click)="openCalModal()" >
+                <ion-icon name="add" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </div> -->
+
+    <div>
+        <ion-segment [(ngModel)]="calendar.mode">
+            <ion-segment-button value="month">
+                <ion-label>Month</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="week">
+                <ion-label>Week</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div>
+        <ion-row>
+            <!-- Move back one screen of the slides -->
+            <ion-col size="2">
+                <ion-button fill="clear" (click)="back()">
+                    <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="8" class="ion-text-center">
+                <h5>{{ viewTitle }}</h5>
+            </ion-col>
+
+            <!-- Move forward one screen of the slides -->
+            <ion-col size="2">
+                <ion-button fill="clear" (click)="next()">
+                    <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
     </div>
 
-    <div style="text-align: center;">
-        <ion-calendar [(ngModel)]="dateRange" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'">
-        </ion-calendar>
 
-    </div>
+    <ion-card  id = "cal" >
+        <calendar  [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+            (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" startHour="6"
+            endHour="20" step="30" startingDayWeek="1" [monthviewDisplayEventTemplate]="template" >
+        </calendar>
 
-    <ion-row style="margin-left: 3%;">
-        <ion-col>
-            <p id="selector"> Coming Week Events
+        
+            <ng-template #template let-view="view" let-row="row" let-col="col">
+            <div [class.with-event]="view.dates[row*7+col].events.length">
+                {{view.dates[row*7+col].label}}
+                <div class="indicator-container">
+                    <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+                </div>
+            </div>
+        </ng-template> 
+
+    </ion-card>
+
+   <!--  To add random events to the calendar with dots
+    <div>
+        <ion-row>
+            <ion-col size="6">
+                <ion-button (click)="createRandomEvents()" expand="block" >
+                    Add random events
+                </ion-button>
+            </ion-col>
+            
+            To remove random events
+
+            <ion-col size="6">
+                <ion-button (click)="removeEvents()" expand="block" >
+                    Remove all events
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div> -->
+
+    <div>
+        <ion-row style="margin-left: 3%;">
+            <ion-col>
+                <p id="selector"> Coming Week Events
+                </p>
+            </ion-col>
+            <ion-col>
+                <ion-select interface="popover" placeholder="All Events" class="selector">
+                    <ion-select-option>Observance</ion-select-option>
+                    <ion-select-option>Christian</ion-select-option>
+                    <ion-select-option>Muslims</ion-select-option>
+                    <ion-select-option>Budish</ion-select-option>
+                    <ion-select-option>Indian</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ventList">
+            <p><a [routerLink]="['/event-detail']">Oct 8 Milad un Nabi (Mawlid), Muslim</a> </p>
+        </ion-row>
+        <ion-row class="ventList">
+            <p><a [routerLink]="['/event-detail']">Oct 10 First day of Sukkot, Jewish Holiday</a>
             </p>
-        </ion-col>
-        <ion-col>
-            <ion-select interface="popover" placeholder="All Events" class="selector">
-                <ion-select-option>Observance</ion-select-option>
-                <ion-select-option>Christian</ion-select-option>
-                <ion-select-option>Muslims</ion-select-option>
-                <ion-select-option>Budish</ion-select-option>
-                <ion-select-option>Indian</ion-select-option>
-            </ion-select>
-        </ion-col>
-    </ion-row>
-    <ion-row class="ventList">
-        <p><a [routerLink]="['/event-detail']" >Oct 8 Milad un Nabi (Mawlid), Muslim</a> </p>
-    </ion-row>
-    <ion-row class="ventList">
-        <p><a [routerLink]="['/event-detail']" >Oct 10 First day of Sukkot, Jewish Holiday</a>
-        </p>
-    </ion-row>
-    <ion-row class="ventList">
-        <p><a [routerLink]="['/event-detail']" >Oct 10 Thanksgiving Day, Statutory Holiday</a>
-        </p>
-    </ion-row>
+        </ion-row>
+        <ion-row class="ventList">
+            <p><a [routerLink]="['/event-detail']">Oct 10 Thanksgiving Day, Statutory Holiday</a>
+            </p>
+        </ion-row>
+    </div>
+
+
 </ion-content>
