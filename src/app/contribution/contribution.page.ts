@@ -30,7 +30,7 @@ export class ContributionPage implements OnInit {
     })
   }
 
-submitForm() {
+  submitForm() {
     //check the input
     this.isSubmitted = true;
     if (
