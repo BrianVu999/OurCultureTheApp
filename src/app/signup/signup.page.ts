@@ -64,6 +64,7 @@ export class SignupPage implements OnInit {
     }
     else if(
       await this.authenticationService.SignUp(
+        this.signupForm.get('name').value,
         this.signupForm.get('email').value,
         this.signupForm.get('password').value
       )
