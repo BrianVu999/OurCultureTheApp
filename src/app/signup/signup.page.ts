@@ -62,6 +62,9 @@ export class SignupPage implements OnInit {
     else if (!this.signupForm.valid) {
       this.alertMessage = "Please enter valid input!";
     }
+    else if (this.signupForm.get('password').value != this.signupForm.get('conpassword').value) {
+      this.alertMessage = "Your passwords are not matched!";
+    }
     else if(
       await this.authenticationService.SignUp(
         this.signupForm.get('name').value,
