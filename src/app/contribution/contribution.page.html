@@ -13,7 +13,7 @@
 </ion-item>
 
 <ion-item>
-  <ion-label position="stacked"  >Date *</ion-label>
+  <ion-label position="stacked"  >Date of Next Event *</ion-label>
     <ion-input type="Date"  formControlName="date" required placeholder="Date" ></ion-input>
 </ion-item>
 
@@ -30,39 +30,39 @@
 
 <ion-item>
   <ion-label position="stacked">If not, how is it determined every year?(10-60 words) </ion-label>
-  <ion-textarea minlength="10" maxlength="60" placeholder="Type here.."></ion-textarea>
+  <ion-textarea minlength="10" maxlength="60" placeholder="Type here.." formControlName="dateDetermination"></ion-textarea>
 </ion-item>
 
 
 <ion-item>
   <ion-label position="stacked">Religious/Non-religious *</ion-label>
   <ion-select formControlName="religious"  required placeholder="Select One">
-    <ion-select-option value="1">Non-Religious</ion-select-option>
-    <ion-select-option value="2">Baha'i</ion-select-option>
-    <ion-select-option value="3">Buddhism</ion-select-option>
-    <ion-select-option value="4">Christian</ion-select-option>
-    <ion-select-option value="5">Hinduism</ion-select-option>
-    <ion-select-option value="6">Indigenous</ion-select-option>
-    <ion-select-option value="7">Jewish</ion-select-option>
-    <ion-select-option value="8">Muslim</ion-select-option>
-    <ion-select-option value="9">Sikhism</ion-select-option>
-    <ion-select-option value="10">Other</ion-select-option>
+    <ion-select-option value="Non-Religious">Non-Religious</ion-select-option>
+    <ion-select-option value="Baha'i">Baha'i</ion-select-option>
+    <ion-select-option value="Buddhism">Buddhism</ion-select-option>
+    <ion-select-option value="Christian">Christian</ion-select-option>
+    <ion-select-option value="Hinduism">Hinduism</ion-select-option>
+    <ion-select-option value="Indigenous">Indigenous</ion-select-option>
+    <ion-select-option value="Jewish">Jewish</ion-select-option>
+    <ion-select-option value="Muslim">Muslim</ion-select-option>
+    <ion-select-option value="Sikhism">Sikhism</ion-select-option>
+    <ion-select-option value="Other">Other</ion-select-option>
   </ion-select>
 </ion-item>
 
 <ion-item>
   <ion-label position="stacked">Type of event *</ion-label>
   <ion-select  formControlName="type" required placeholder="Select One">
-    <ion-select-option value="a">Celebration</ion-select-option>
-    <ion-select-option value="b">Local Holiday</ion-select-option>
-    <ion-select-option value="c">Statutory Holiday</ion-select-option>
+    <ion-select-option value="Celebration">Celebration</ion-select-option>
+    <ion-select-option value="Local Holiday">Local Holiday</ion-select-option>
+    <ion-select-option value="Statutory Holiday">Statutory Holiday</ion-select-option>
   </ion-select>
 </ion-item>
 
 
 <ion-item>
   <ion-label position="stacked" >Where in Canada observed? </ion-label>
-    <ion-input    placeholder="Enter the event name"></ion-input>
+    <ion-input formControlName="canadaObservedPlace" placeholder="Enter the event name"></ion-input>
 </ion-item>
 
 <ion-item>
@@ -78,12 +78,6 @@
       <ion-textarea minlength="20" maxlength="200" formControlName="ritual" required placeholder="Type here.."></ion-textarea>
     </ion-item>
 
-  
-
-    <ion-item>
-      <ion-label position="stacked">Searchable terms(0-30 words) </ion-label>
-      <ion-textarea  maxlength="30" placeholder="Type here.."></ion-textarea>
-    </ion-item>
 
     <!-- <ion-item>
       <ion-list>
