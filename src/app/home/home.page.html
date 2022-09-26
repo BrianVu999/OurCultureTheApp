@@ -5,27 +5,19 @@
 </ion-header>
 
 <ion-content>
-<br>
-    
-    <!-- To add an event to the calendar
-        <div>
-        <ion-buttons slot="end">
-            <ion-button (click)="openCalModal()" >
-                <ion-icon name="add" slot="icon-only"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </div> -->
-
     <div>
+        <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
             <ion-segment-button value="month">
                 <ion-label>Month</ion-label>
             </ion-segment-button>
+
             <ion-segment-button value="week">
                 <ion-label>Week</ion-label>
             </ion-segment-button>
         </ion-segment>
     </div>
+
     <div>
         <ion-row>
             <!-- Move back one screen of the slides -->
@@ -35,6 +27,7 @@
                 </ion-button>
             </ion-col>
 
+            <!--Monthly Calendar Title-->
             <ion-col size="8" class="ion-text-center">
                 <h5>{{ viewTitle }}</h5>
             </ion-col>
@@ -47,39 +40,38 @@
             </ion-col>
         </ion-row>
     </div>
-
-
-    <ion-card  id = "cal" >
-        <calendar  [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-            (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" startHour="6"
-            endHour="20" step="30" startingDayWeek="1" [monthviewDisplayEventTemplate]="template" >
+    <div id="cal">
+        <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+            (onTitleChanged)="onViewTitleChanged($event)" (onEventSelected)="onEventSelected($event)"
+            [formatDayHeader]="calendar.formatDayHeader" [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader"
+            [startingDayMonth]="calendar.startingDayMonth" [formatMonthTitle]="calendar.formatMonthTitle"
+            [formatWeekTitle]="calendar.formatWeekTitle" [monthviewDisplayEventTemplate]="template">
         </calendar>
-
-        
-            <ng-template #template let-view="view" let-row="row" let-col="col">
-            <div [class.with-event]="view.dates[row*7+col].events.length">
+        <!--Template to show the calendar dates and events-->
+        <ng-template #template let-view="view" let-row="row" let-col="col">
+            <!--Show the event list in the table-->
+            <div [class.with-event]="view.dates[row*7+col].events.length" style="font-size: small; font-weight: 700;">
+                <!--Show the dates in the calendar-->
                 {{view.dates[row*7+col].label}}
+                <!--Show the indicators(selected days with indicated backgroud color and dots)-->
                 <div class="indicator-container">
                     <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
                 </div>
             </div>
-        </ng-template> 
+        </ng-template>
+    </div>
 
-    </ion-card>
-
-    <!-- To add random events to the calendar with dots -->
+    <!--  To add random events to the calendar with dots -->
     <div>
         <ion-row>
             <ion-col size="6">
-                <ion-button (click)="createRandomEvents()" expand="block" >
+                <ion-button (click)="createRandomEvents()" expand="block">
                     Add random events
                 </ion-button>
             </ion-col>
-            
-            <!-- To remove random events -->
 
             <ion-col size="6">
-                <ion-button (click)="removeEvents()" expand="block" >
+                <ion-button (click)="removeEvents()" expand="block">
                     Remove all events
                 </ion-button>
             </ion-col>
@@ -114,6 +106,5 @@
             </p>
         </ion-row>
     </div>
-
 
 </ion-content>

@@ -1,5 +1,5 @@
 import { CalendarComponent } from 'ionic2-calendar';
-import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
@@ -7,57 +7,58 @@ import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent; //@ViewChild to get access to the calendar component
+
+  @Input()
   eventSource = [];
+
   viewTitle: string;
-
+ 
+  //setup the formation for the calendar
   calendar = {
-    mode: 'month',
-    currentDate: new Date(),
+    mode: 'month', //Calendar Mode
+    currentDate: new Date(), //Find the current day
+    startingDayMonth: 0, // 0 means Sunday, 1 Means Monday
+    formatDayHeader: "EEEEEE", //EEE=>Mon, EEEEE=>M, EEEEEE=>Mo
+    formatWeekViewDayHeader:"EEEEEE d",
+    formatMonthTitle:"MMM yyyy",//Format the Monthly Calendar Title
+    formatWeekTitle:"MMM yyyy, 'Week'w"
   };
-
-  selectedDate: Date;
-
-  @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
   constructor(
     private alertCtrl: AlertController,
     @Inject(LOCALE_ID) private locale: string,
     private modalCtrl: ModalController
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  // Change current month/week/day
+  // Change current month/week to next Month
   next() {
     this.myCal.slideNext();
   }
 
+   // Change current month/week to previous Month
   back() {
     this.myCal.slidePrev();
   }
-
-  // Selected date reange and hence title changed
+  
+  // Change the Monthy Calendar Title
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
 
-  // Calendar event was clicked
-  async onEventSelected(event) {
-    // Use Angular date pipe for conversion
-    let start = formatDate(event.startTime, 'medium', this.locale);
-    let end = formatDate(event.endTime, 'medium', this.locale);
 
-    const alert = await this.alertCtrl.create({
-      header: event.title,
-      subHeader: event.desc,
-      message: 'From: ' + start + '<br><br>To: ' + end,
-      buttons: ['OK'],
-    });
-    alert.present();
-  }
+
+
+
+
+
+  selectedDate: Date;
 
   createRandomEvents() {
     var events = [];
@@ -129,9 +130,9 @@ export class HomePage implements OnInit {
       cssClass: 'cal-modal',
       backdropDismiss: false
     });
-  
+
     await modal.present();
-  
+
     modal.onDidDismiss().then((result) => {
       if (result.data && result.data.event) {
         let event = result.data.event;
@@ -157,5 +158,21 @@ export class HomePage implements OnInit {
       }
     });
   }
+ 
   
+    // Calendar event was clicked
+    async onEventSelected(event) {
+      // Use Angular date pipe for conversion
+      let start = formatDate(event.startTime, 'short', this.locale);
+      let end = formatDate(event.endTime, 'short', this.locale);
+  
+      const alert = await this.alertCtrl.create({
+        header: event.title,
+        subHeader: event.desc,
+        message: 'From: ' + start + '<br><br>To: ' + end,
+        buttons: ['OK'],
+      });
+      alert.present();
+    }
+
 }
