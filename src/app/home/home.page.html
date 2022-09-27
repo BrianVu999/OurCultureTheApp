@@ -6,6 +6,7 @@
 
 <ion-content>
     <div>
+        <br>
         <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
             <ion-segment-button value="month">
@@ -43,9 +44,9 @@
     <div id="cal">
         <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
             (onTitleChanged)="onViewTitleChanged($event)" (onEventSelected)="onEventSelected($event)"
-            [formatDayHeader]="calendar.formatDayHeader" [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader"
-            [startingDayMonth]="calendar.startingDayMonth" [formatMonthTitle]="calendar.formatMonthTitle"
-            [formatWeekTitle]="calendar.formatWeekTitle" [monthviewDisplayEventTemplate]="template">
+            [formatDayHeader]="calendar.formatDayHeader" [startingDayMonth]="calendar.startingDayMonth"
+            [formatMonthTitle]="calendar.formatMonthTitle" [formatWeekTitle]="calendar.formatWeekTitle"
+            [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader" [monthviewDisplayEventTemplate]="template">
         </calendar>
         <!--Template to show the calendar dates and events-->
         <ng-template #template let-view="view" let-row="row" let-col="col">
@@ -77,6 +78,7 @@
             </ion-col>
         </ion-row>
     </div>
+
 
     <div>
         <ion-row style="margin-left: 3%;">
