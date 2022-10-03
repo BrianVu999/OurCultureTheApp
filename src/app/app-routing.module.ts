@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
 
+
+
 const routes: Routes = [
   {
     path: 'home',
@@ -40,6 +42,10 @@ const routes: Routes = [
   {
     path: 'cal-modal',
     loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+  },
+  {
+    path: 'popular-events',
+    loadChildren: () => import('./popular-events/popular-events.module').then( m => m.PopularEventsPageModule)
   }
 
 

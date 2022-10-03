@@ -1,16 +1,22 @@
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, RefresherEventDetail } from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
 import { CalendarComponent } from 'ionic2-calendar';
 import { formatDate } from '@angular/common';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 
+interface RefresherCustomEvent extends CustomEvent {
+  detail: RefresherEventDetail;
+  target: HTMLIonRefresherElement;
+}
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
+
 export class HomePage implements OnInit {
+  
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent; //@ViewChild to get access to the calendar component
 

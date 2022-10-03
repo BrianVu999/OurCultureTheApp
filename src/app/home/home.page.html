@@ -3,10 +3,8 @@
         <app-header></app-header>
     </div>
 </ion-header>
-
 <ion-content>
     <div>
-        <br>
         <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
             <ion-segment-button value="month">
@@ -87,7 +85,7 @@
                 </p>
             </ion-col>
             <ion-col>
-                <ion-select interface="popover" placeholder="All Events" class="selector">
+                <ion-select interface="action-sheet" placeholder="All Events" class="selector">
                     <ion-select-option>Observance</ion-select-option>
                     <ion-select-option>Christian</ion-select-option>
                     <ion-select-option>Muslims</ion-select-option>
@@ -95,6 +93,7 @@
                     <ion-select-option>Indian</ion-select-option>
                 </ion-select>
             </ion-col>
+
         </ion-row>
         <ion-row class="ventList">
             <p><a [routerLink]="['/event-detail']">Oct 8 Milad un Nabi (Mawlid), Muslim</a> </p>
