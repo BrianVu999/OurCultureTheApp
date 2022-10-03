@@ -19,6 +19,8 @@ export class HomePage implements OnInit {
   @Input()
   eventSource = []; //array to store the events
   viewTitle: string; //calendar title for the calendar view
+
+  eventsArray= ['Oct 8 Milad un Nabi (Mawlid), Muslim','Oct 10 First day of Sukkot, Jewish Holiday','Oct 10 Thanksgiving Day, Statutory Holiday']
  
   //setup the format for the calendar
   calendar = {
