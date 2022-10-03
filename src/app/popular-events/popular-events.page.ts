@@ -22,11 +22,16 @@ export class PopularEventsPage implements OnInit {
 
   eventsArray= ['Christmas Eve, Christian','First day of Sukkot, Jewish Holiday','Ramadan, Muslim','Thanksgiving Day, Statutory Holiday',
   'Milad un Nabi (Mawlid), Indian','Easter Monday, Christian','Good Friday, Christian','Eid al-Fitr, Muslim','St. Valentines Day, Christian']
-
+  
   ngOnInit() {
+    this.getFreshData(null)
   }
-  upDate(sel:any){
-    console.log(sel.target.value)
+
+  getFreshData(event){
+    if (event)
+          event.target.complete()
+
   }
+
 
 }

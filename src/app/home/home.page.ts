@@ -5,10 +5,6 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { formatDate } from '@angular/common';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 
-interface RefresherCustomEvent extends CustomEvent {
-  detail: RefresherEventDetail;
-  target: HTMLIonRefresherElement;
-}
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -39,11 +35,14 @@ export class HomePage implements OnInit {
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
+    
 
-    @Inject(LOCALE_ID) private locale: string
+    @Inject(LOCALE_ID) private locale: string,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.getFreshData(null)
+  }
 
   // Change current month/week to next Month =>instance method 
   next() {
@@ -60,10 +59,15 @@ export class HomePage implements OnInit {
     this.viewTitle = title;
   }
 
-
-  
   // code under the construction for next sprint
   selectedDate: Date;
+
+  getFreshData(event){
+    this.createRandomEvents()
+    if (event)
+          event.target.complete()
+
+  }
 
   createRandomEvents() {
     var events = [];
