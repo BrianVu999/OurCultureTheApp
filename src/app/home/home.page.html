@@ -99,7 +99,6 @@
         </ion-row>
 
         <ion-list class="eventList">
-            
             <ion-item *ngFor=" let item of eventsArray; let i=index">
               <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
             </ion-item>
