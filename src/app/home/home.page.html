@@ -90,20 +90,31 @@
             </ion-col>
             <ion-col>
                 <ion-select interface="action-sheet" placeholder="All Events" class="selector">
-                    <ion-select-option value="Observance">Observance</ion-select-option>
-                    <ion-select-option value="Christian">Christian</ion-select-option>
-                    <ion-select-option value="Muslims">Muslims</ion-select-option>
-                    <ion-select-option value="Budish">Budish</ion-select-option>
-                    <ion-select-option value="Indian">Indian</ion-select-option>
+                    <ion-select-option value="Celebration">Celebration</ion-select-option>
+                    <ion-select-option value="Local Holiday">Local Holiday</ion-select-option>
+                    <ion-select-option value="Statutory Holiday">Statutory Holiday</ion-select-option>
                 </ion-select>
             </ion-col>
 
         </ion-row>
+
         <ion-list class="eventList">
+            
             <ion-item *ngFor=" let item of eventsArray; let i=index">
               <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
             </ion-item>
           </ion-list>
-        </div>
+       
+        <!--
+             <br>
+        <h5 style="text-align: center;">No coming events in this week</h5>
+        <br>
+        <br>
+        <br>
+        <br>
+     
+        
+        -->
+    </div>
 
 </ion-content>
