@@ -1,0 +1,54 @@
+a {
+    color: #37474f;
+    font-size: smaller;
+    margin-left: 10px;
+  }
+  
+  a:hover {
+    font-weight: 600;
+  }
+  
+  ion-button:hover {
+    transform: translateY(0);
+  }
+  .eventList {
+    font-size: smaller;
+    margin-left: 5%;
+    color: #37474f;
+  }
+  #selector {
+    display: inline-block;
+    width: 140%;
+    font-weight: bold;
+  }
+  .selector {
+    width: 80%;
+    margin: auto;
+    --placeholder-color: black;
+    --placeholder-opacity: 1;
+    float: right;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-right: 1%;
+    background-color: lightskyblue;
+  }
+  #container a {
+    text-decoration: none;
+  }
+  #container strong {
+    font-size: 15px;
+    line-height: 26px;
+  }
+  ion-list-header {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+  ion-item{
+    padding: 5px;
+    font-size: 15px;
+
+  }
+  ion-item:hover {
+    font-weight: 500;
+  }

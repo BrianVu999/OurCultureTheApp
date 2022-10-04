@@ -3,8 +3,11 @@
         <app-header></app-header>
     </div>
 </ion-header>
-
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="getFreshData($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+      </ion-refresher>
     <div>
         <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
@@ -43,9 +46,9 @@
     <div id="cal">
         <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
             (onTitleChanged)="onViewTitleChanged($event)" (onEventSelected)="onEventSelected($event)"
-            [formatDayHeader]="calendar.formatDayHeader" [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader"
-            [startingDayMonth]="calendar.startingDayMonth" [formatMonthTitle]="calendar.formatMonthTitle"
-            [formatWeekTitle]="calendar.formatWeekTitle" [monthviewDisplayEventTemplate]="template">
+            [formatDayHeader]="calendar.formatDayHeader" [startingDayMonth]="calendar.startingDayMonth"
+            [formatMonthTitle]="calendar.formatMonthTitle" [formatWeekTitle]="calendar.formatWeekTitle"
+            [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader" [monthviewDisplayEventTemplate]="template">
         </calendar>
         <!--Template to show the calendar dates and events-->
         <ng-template #template let-view="view" let-row="row" let-col="col">
@@ -78,6 +81,7 @@
         </ion-row>
     </div>
 
+
     <div>
         <ion-row style="margin-left: 3%;">
             <ion-col>
@@ -85,26 +89,31 @@
                 </p>
             </ion-col>
             <ion-col>
-                <ion-select interface="popover" placeholder="All Events" class="selector">
-                    <ion-select-option>Observance</ion-select-option>
-                    <ion-select-option>Christian</ion-select-option>
-                    <ion-select-option>Muslims</ion-select-option>
-                    <ion-select-option>Budish</ion-select-option>
-                    <ion-select-option>Indian</ion-select-option>
+                <ion-select interface="action-sheet" placeholder="All Events" class="selector">
+                    <ion-select-option value="Celebration">Celebration</ion-select-option>
+                    <ion-select-option value="Local Holiday">Local Holiday</ion-select-option>
+                    <ion-select-option value="Statutory Holiday">Statutory Holiday</ion-select-option>
                 </ion-select>
             </ion-col>
+
         </ion-row>
-        <ion-row class="ventList">
-            <p><a [routerLink]="['/event-detail']">Oct 8 Milad un Nabi (Mawlid), Muslim</a> </p>
-        </ion-row>
-        <ion-row class="ventList">
-            <p><a [routerLink]="['/event-detail']">Oct 10 First day of Sukkot, Jewish Holiday</a>
-            </p>
-        </ion-row>
-        <ion-row class="ventList">
-            <p><a [routerLink]="['/event-detail']">Oct 10 Thanksgiving Day, Statutory Holiday</a>
-            </p>
-        </ion-row>
+
+        <ion-list class="eventList">
+            <ion-item *ngFor=" let item of eventsArray; let i=index">
+              <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
+            </ion-item>
+          </ion-list>
+       
+        <!--
+             <br>
+        <h5 style="text-align: center;">No coming events in this week</h5>
+        <br>
+        <br>
+        <br>
+        <br>
+     
+        
+        -->
     </div>
 
 </ion-content>

@@ -55,9 +55,9 @@ a {
 
 
 .eventList {
-  font-size: smaller;
-  margin-left: 5%;
+  margin-left: 1%;
   color: #37474f;
+  margin-bottom: 10px;
 }
 
 a {
@@ -111,4 +111,14 @@ ion-button {
   padding: 1%;
   margin: 1%;
 
+}
+ion-segment {
+  margin:10px;
+}
+ion-item{
+  font-size: 13px;
+
+}
+ion-item:hover {
+  font-weight: 500;
 }

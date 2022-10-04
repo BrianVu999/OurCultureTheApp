@@ -1,48 +1,57 @@
-import { CalendarComponent } from 'ionic2-calendar';
-import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { formatDate } from '@angular/common';
+import { AlertController, ModalController, RefresherEventDetail } from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
+
+import { CalendarComponent } from 'ionic2-calendar';
+import { formatDate } from '@angular/common';
+import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
+
 export class HomePage implements OnInit {
+  
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent; //@ViewChild to get access to the calendar component
 
   @Input()
-  eventSource = [];
+  eventSource = []; //array to store the events
+  viewTitle: string; //calendar title for the calendar view
 
-  viewTitle: string;
+  eventsArray= ['Oct 8 Milad un Nabi (Mawlid), Muslim','Oct 10 First day of Sukkot, Jewish Holiday','Oct 10 Thanksgiving Day, Statutory Holiday']
  
-  //setup the formation for the calendar
+  //setup the format for the calendar
   calendar = {
     mode: 'month', //Calendar Mode
-    currentDate: new Date(), //Find the current day
-    startingDayMonth: 0, // 0 means Sunday, 1 Means Monday
-    formatDayHeader: "EEEEEE", //EEE=>Mon, EEEEE=>M, EEEEEE=>Mo
-    formatWeekViewDayHeader:"EEEEEE d",
+    currentDate: new Date(), //Instance menthod to find the current day
+    startingDayMonth: 1, // 0: Sunday, 1: Monday
+    formatDayHeader: "EEEEEE", //Format tge monthly calendar Day Header, EEE=>Mon, EEEE=>Monday, EEEEE=>M, EEEEEE=>Mo
     formatMonthTitle:"MMM yyyy",//Format the Monthly Calendar Title
+
+    formatWeekViewDayHeader:"EEEEEE d",
     formatWeekTitle:"MMM yyyy, 'Week'w"
   };
 
   constructor(
     private alertCtrl: AlertController,
+    private modalCtrl: ModalController,
+    
+
     @Inject(LOCALE_ID) private locale: string,
-    private modalCtrl: ModalController
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.getFreshData(null)
+  }
 
-  // Change current month/week to next Month
+  // Change current month/week to next Month =>instance method 
   next() {
     this.myCal.slideNext();
   }
 
-   // Change current month/week to previous Month
+   // Change current month/week to previous Month =>instance method
   back() {
     this.myCal.slidePrev();
   }
@@ -52,13 +61,15 @@ export class HomePage implements OnInit {
     this.viewTitle = title;
   }
 
-
-
-
-
-
-
+  // code under the construction for next sprint
   selectedDate: Date;
+
+  getFreshData(event){
+    this.createRandomEvents()
+    if (event)
+          event.target.complete()
+
+  }
 
   createRandomEvents() {
     var events = [];

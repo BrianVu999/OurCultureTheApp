@@ -17,10 +17,10 @@
 
         <div id="link" style="display: flex; text-align: center;font-size: 14px; font-weight: bold;text-decoration: underline;">
             <div style="width:20%;"> 
-                <a href="" class="navi-button" style="color: black;">Home</a>
+                <a href="" class="navi-button" [routerLink]="['/home']" style="color: black;">Home</a>
             </div>
             <div style="width:50%;">
-                <a href="" class="navi-button" style="color: black;">Popular Events</a>
+                <a href="" class="navi-button" [routerLink]="['/popular-events']" style="color: black;">Popular Events</a>
             </div>
             <div style="width:30%;">
                 <a href="" class="navi-button" [routerLink]="['/contribution']" style="color: black;">Contribute</a>
