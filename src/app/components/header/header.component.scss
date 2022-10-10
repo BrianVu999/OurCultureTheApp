@@ -1,23 +1,25 @@
 #all{
-    background-color: #ADD8E6;
+    background-color: #60a1b900;
+    width: 90%;
 }
 #header {
     font-size: 25px;
     margin: auto;
-    padding-top: 50px;
-    padding-bottom: 20px;
-    width: fit-content;
+    
 }
 
 #navigation {
     text-align: center;
+    
 
 }
 
 #searchBar {
     display: inline-block;
-    width: 90%;
+   height: 2% !important;
     text-align: center;
+    margin: 2px;
+
 }
 
 #link{
@@ -36,7 +38,7 @@ a {
 #searchSuggestion {
     display: block;
     margin-left: 7px;
-    width: 300px;
+    width: 98%;
     overflow-y: scroll;
     font-size: 16px;
     position: absolute;
@@ -60,10 +62,24 @@ a {
     background-color: #82ada9;
 }
 
+
+
 #searchEventBar:focus {
     display: none;
 }
 
 ion-header {
-    background-color: #82ada9
+    background-color: #82ada900
 }
+
+ion-toolbar {
+    --background: #60a1b900;
+    --color: rgb(20, 19, 19);
+  
+    --min-height: 70px;
+    margin: auto;
+  }
+
+  ion-title{
+    font-size: x-large;
+  }
