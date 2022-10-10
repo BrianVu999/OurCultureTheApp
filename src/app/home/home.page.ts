@@ -2,7 +2,7 @@ import { AlertController, ModalController, RefresherEventDetail } from '@ionic/a
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
 import { CalendarComponent } from 'ionic2-calendar';
-import { formatDate } from '@angular/common';
+import { formatDate, WeekDay } from '@angular/common';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 
 @Component({
@@ -20,13 +20,17 @@ export class HomePage implements OnInit {
   viewTitle: string; //calendar title for the calendar view
 
   selectValue: string;
-  eventSource = [ ]
+  eventSource = []
+  
+
+
 
   event = {
     title: '',
     startTime: null,
     endTime: '',
-    allDay: true
+    allDay: true,
+
   };
 
   //setup the format for the calendar
@@ -43,7 +47,7 @@ export class HomePage implements OnInit {
     startingDayWeek: 1,
 
     allDayLabel: "Item",
-    showEventDetail:true
+    showEventDetail: true
   };
 
   constructor(
@@ -79,10 +83,13 @@ export class HomePage implements OnInit {
   //refresh the data
   getFreshData(event) {
     this.createRandomEvents()
-    this.allItems = this.eventSource;
+    this.allItems = this.eventSource.filter((item) => {
+      return item.endTime > Date.now()&&(this.allItems = this.eventSource);
+
+    })
     if (event)
       event.target.complete()
-      
+
 
   }
 
@@ -106,21 +113,27 @@ export class HomePage implements OnInit {
 
     if (this.selectValue && this.selectValue.trim() !== '') {
       this.allItems = this.eventSource.filter((item) => {
-        return (item.eventType.toLowerCase().indexOf(this.selectValue.toLowerCase()) > -1);
+        return (item.eventType.toLowerCase().indexOf(this.selectValue.toLowerCase()) > -1) && item.endTime > Date.now();
       });
     } else {
-      this.eventSource = this.allItems;
-    }
+      this.allItems = this.eventSource.filter((item) => {
+        return item.endTime > Date.now()&&(this.allItems = this.eventSource);
+
+      })
+  }
 
     if (this.selectValue == 'all') {
-      this.allItems = this.eventSource;
-    }
+      this.allItems = this.eventSource.filter((item) => {
+        return item.endTime > Date.now()&&(this.allItems = this.eventSource);
+      })
+  }
+
   }
 
   createRandomEvents() {
     var events = [];
 
-    for (var i = 0; i < 300; i += 1) {
+    for (var i = 0; i < 50; i += 1) {
       var date = new Date();
       var eventType = Math.floor(Math.random() * 3);
       var startDay = Math.floor(Math.random() * 60) - 45;
@@ -147,7 +160,7 @@ export class HomePage implements OnInit {
         );
 
         events.push({
-          title: 'Event Example ' + (i+1),
+          title: 'Event Example ' + (i + 1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
@@ -173,7 +186,7 @@ export class HomePage implements OnInit {
           )
         );
         events.push({
-          title: 'Event Example ' + (i+1),
+          title: 'Event Example ' + (i + 1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
@@ -201,16 +214,15 @@ export class HomePage implements OnInit {
           )
         );
         events.push({
-          title: 'Event Example ' + (i+1),
+          title: 'Event Example ' + (i + 1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventType: 'Statutory Holiday'
+          eventType: 'Statutory Holiday',
         });
       }
 
     }
-
     this.eventSource = events;
   }
 
@@ -222,8 +234,7 @@ export class HomePage implements OnInit {
   // Calendar event was clicked
   async onEventSelected(event) {
     // Use Angular date pipe for conversion
-    let start = formatDate(event.startTime, 'short', this.locale);
-    let end = formatDate(event.endTime, 'short', this.locale);
+    let end = formatDate(event.endTime, 'medium', this.locale).slice(0, 12);
 
     const alert = await this.alertCtrl.create({
       header: event.title,
