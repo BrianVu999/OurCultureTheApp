@@ -7,7 +7,7 @@
     <ion-refresher slot="fixed" (ionRefresh)="getFreshData($event)">
         <ion-refresher-content>
         </ion-refresher-content>
-      </ion-refresher>
+    </ion-refresher>
     <div>
         <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
@@ -46,12 +46,14 @@
     <div id="cal">
         <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
             (onTitleChanged)="onViewTitleChanged($event)" (onEventSelected)="onEventSelected($event)"
-            [formatDayHeader]="calendar.formatDayHeader" [startingDayMonth]="calendar.startingDayMonth"
+            [formatDayHeader]="calendar.formatDayHeader" [startingDayMonth]="calendar.startingDayMonth" [startingDayWeek]="calendar.startingDayWeek"
             [formatMonthTitle]="calendar.formatMonthTitle" [formatWeekTitle]="calendar.formatWeekTitle"
-            [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader" [monthviewDisplayEventTemplate]="template">
+            [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader" [allDayLabel]="calendar.allDayLabel"
+            [monthviewDisplayEventTemplate]="monthlyTemplate" [weekviewAllDayEventTemplate]="WeeklyTemplate">
         </calendar>
         <!--Template to show the calendar dates and events-->
-        <ng-template #template let-view="view" let-row="row" let-col="col">
+
+        <ng-template #monthlyTemplate let-view="view" let-row="row" let-col="col">
             <!--Show the event list in the table-->
             <div [class.with-event]="view.dates[row*7+col].events.length" style="font-size: small; font-weight: 700;">
                 <!--Show the dates in the calendar-->
@@ -61,6 +63,13 @@
                     <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
                 </div>
             </div>
+        </ng-template>
+
+        <ng-template #WeeklyTemplate let-displayEvent="displayEvent" let-showEventDetail="showEventDetail" let-noEventsLabel="noEventsLabel">
+            <ul class="calendar-event-inner" ngFor="let i of events">
+                <li [ngStyle]="{'background-color':getColor(displayEvent.event.eventTypeTitle)}">{{displayEvent.event.eventTypeTitle}}</li>
+            </ul>
+           
         </ng-template>
     </div>
 
@@ -100,10 +109,10 @@
 
         <ion-list class="eventList">
             <ion-item *ngFor=" let item of eventsArray; let i=index">
-              <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
+                <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
             </ion-item>
-          </ion-list>
-       
+        </ion-list>
+
         <!--
              <br>
         <h5 style="text-align: center;">No coming events in this week</h5>

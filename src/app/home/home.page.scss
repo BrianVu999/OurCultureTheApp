@@ -4,6 +4,7 @@
   padding: 0%;
   width: 95%;
   margin-left:2.5%;
+  line-height: 50px ;
 }
 
 #container strong {
@@ -80,7 +81,7 @@ ion-button:hover {
 }
 
 .event-indicator {
-  background: var(--ion-color-success);
+  background: greenyellow;
   width: 5px;
   height: 5px;
   border-radius: 2px;
@@ -89,20 +90,29 @@ ion-button:hover {
 
 :host ::ng-deep {
   .monthview-primary-with-event {
-    background-color: white !important;
+    background-color: lightcyan !important;
   }
 
   .monthview-selected {
-    background-color: var(--ion-color-success) !important;
+    color: white!important;
+    background-color:var(--ion-color-primary) !important;
+    font-size: 20px;
   }
 }
 
 .with-event {
-  background-color: var(--ion-color-primary);
+  background-color: var(--ion-color-secondary);
   border-radius: 15px;
+
 }
-
-
+.calendar-event-inner {
+  overflow: hidden;
+  color: white;
+  height: 100%;
+  width: 100%;
+  padding: 2px;
+  font-size: 12px;
+}
 
 ion-button {
   width: auto;
@@ -114,6 +124,7 @@ ion-button {
 }
 ion-segment {
   margin:10px;
+  width: 95%;
 }
 ion-item{
   font-size: 13px;
@@ -121,4 +132,7 @@ ion-item{
 }
 ion-item:hover {
   font-weight: 500;
+}
+.weekview-allday-label{
+  font-size: larger;
 }
