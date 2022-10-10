@@ -9,7 +9,6 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  
 })
 
 export class HomePage implements OnInit {
@@ -18,13 +17,17 @@ export class HomePage implements OnInit {
   @ViewChild(CalendarComponent) myCal: CalendarComponent; //@ViewChild to get access to the calendar component
 
   @Input()
-  eventSource = []; //array to store the events
   viewTitle: string; //calendar title for the calendar view
 
-  eventTypeTitle:string;
-  eventName: string;
+  selectValue: string;
+  eventSource = [ ]
 
-  eventsArray = ['Oct 8 Milad un Nabi (Mawlid), Muslim', 'Oct 10 First day of Sukkot, Jewish Holiday', 'Oct 10 Thanksgiving Day, Statutory Holiday']
+  event = {
+    title: '',
+    startTime: null,
+    endTime: '',
+    allDay: true
+  };
 
   //setup the format for the calendar
   calendar = {
@@ -39,8 +42,8 @@ export class HomePage implements OnInit {
     formatWeekTitle: "MMM yyyy, 'Week'w",
     startingDayWeek: 1,
 
-    allDayLabel:"Item"
-
+    allDayLabel: "Item",
+    showEventDetail:true
   };
 
   constructor(
@@ -73,31 +76,54 @@ export class HomePage implements OnInit {
   // code under the construction for next sprint
   selectedDate: Date;
 
+  //refresh the data
   getFreshData(event) {
     this.createRandomEvents()
+    this.allItems = this.eventSource;
     if (event)
       event.target.complete()
+      
 
   }
 
-  getColor(eventTypeTitle) { 
-    switch (eventTypeTitle) {
-      case 'Statutory':
+  //get the event type color showing on the weekday calendar
+  getColor(eventType) {
+    switch (eventType) {
+      case 'Local Holiday':
         return '#3171e0';
       case 'Celebration':
         return '#36abe0';
-      case 'Local':
+      case 'Statutory Holiday':
         return '#28ba62';
+    }
+  }
+
+  //Filter works now!!! But can't identify LocalDay()
+  allItems = this.eventSource;
+
+  upDate(sel: any) {
+    this.selectValue = sel.target.value;
+
+    if (this.selectValue && this.selectValue.trim() !== '') {
+      this.allItems = this.eventSource.filter((item) => {
+        return (item.eventType.toLowerCase().indexOf(this.selectValue.toLowerCase()) > -1);
+      });
+    } else {
+      this.eventSource = this.allItems;
+    }
+
+    if (this.selectValue == 'all') {
+      this.allItems = this.eventSource;
     }
   }
 
   createRandomEvents() {
     var events = [];
-    
-    for (var i = 0; i < 50; i += 1) {
+
+    for (var i = 0; i < 300; i += 1) {
       var date = new Date();
       var eventType = Math.floor(Math.random() * 3);
-      var startDay = Math.floor(Math.random() * 90) - 45;
+      var startDay = Math.floor(Math.random() * 60) - 45;
       var endDay = Math.floor(Math.random() * 2) + startDay;
       var startTime;
       var endTime;
@@ -109,6 +135,9 @@ export class HomePage implements OnInit {
             date.getUTCDate() + startDay
           )
         );
+        if (endDay === startDay) {
+          endDay += 1;
+        }
         endTime = new Date(
           Date.UTC(
             date.getUTCFullYear(),
@@ -116,14 +145,13 @@ export class HomePage implements OnInit {
             date.getUTCDate() + endDay
           )
         );
-        
+
         events.push({
-          eventName: 'C ' +i,
-          title: 'event '+i,
+          title: 'Event Example ' + (i+1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventTypeTitle:'Celebration' 
+          eventType: 'Celebration'
         });
       }
       else if (eventType === 1) {
@@ -145,12 +173,11 @@ export class HomePage implements OnInit {
           )
         );
         events.push({
-          eventName: 'L' +i,
-          title: 'event '+i,
+          title: 'Event Example ' + (i+1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventTypeTitle:'Local'
+          eventType: 'Local Holiday'
         });
       }
 
@@ -174,12 +201,11 @@ export class HomePage implements OnInit {
           )
         );
         events.push({
-          eventName: 'S '+i,
-          title: 'event '+i,
+          title: 'Event Example ' + (i+1),
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventTypeTitle:'Statutory'
+          eventType: 'Statutory Holiday'
         });
       }
 
@@ -189,59 +215,59 @@ export class HomePage implements OnInit {
   }
 
 
-removeEvents() {
-  this.eventSource = [];
-}
+  removeEvents() {
+    this.eventSource = [];
+  }
+
+  // Calendar event was clicked
+  async onEventSelected(event) {
+    // Use Angular date pipe for conversion
+    let start = formatDate(event.startTime, 'short', this.locale);
+    let end = formatDate(event.endTime, 'short', this.locale);
+
+    const alert = await this.alertCtrl.create({
+      header: event.title,
+      message: event.eventType + ", " + end,
+      buttons: ['OK'],
+    });
+    alert.present();
+  }
+
+
+  //No need so far
   async openCalModal() {
-  const modal = await this.modalCtrl.create({
-    component: CalModalPage,
-    cssClass: 'cal-modal',
-    backdropDismiss: false
-  });
+    const modal = await this.modalCtrl.create({
+      component: CalModalPage,
+      cssClass: 'cal-modal',
+      backdropDismiss: false
+    });
 
-  await modal.present();
+    await modal.present();
 
-  modal.onDidDismiss().then((result) => {
-    if (result.data && result.data.event) {
-      let event = result.data.event;
-      if (event.allDay) {
-        let start = event.startTime;
-        event.startTime = new Date(
-          Date.UTC(
-            start.getUTCFullYear(),
-            start.getUTCMonth(),
-            start.getUTCDate()
-          )
-        );
-        event.endTime = new Date(
-          Date.UTC(
-            start.getUTCFullYear(),
-            start.getUTCMonth(),
-            start.getUTCDate() + 1
-          )
-        );
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.event) {
+        let event = result.data.event;
+        if (event.allDay) {
+          let start = event.startTime;
+          event.startTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate()
+            )
+          );
+          event.endTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate() + 1
+            )
+          );
+        }
+        this.eventSource.push(result.data.event);
+        this.myCal.loadEvents();
       }
-      this.eventSource.push(result.data.event);
-      this.myCal.loadEvents();
-    }
-  });
-}
-
-
-    // Calendar event was clicked
-    async onEventSelected(event) {
-  // Use Angular date pipe for conversion
-  let start = formatDate(event.startTime, 'short', this.locale);
-  let end = formatDate(event.endTime, 'short', this.locale);
-
-  const alert = await this.alertCtrl.create({
-    header: event.eventName,
-    subHeader: event.title,
-    message: event.eventTypeTitle +", "+ start,
-    buttons: ['OK'],
-  });
-  alert.present();
-}
-
+    });
+  }
 
 }
