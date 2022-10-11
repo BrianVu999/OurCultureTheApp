@@ -63,7 +63,7 @@ export class SignupPage implements OnInit {
       this.alertMessage = "Please enter valid input!";
     }
     else if (this.signupForm.get('password').value != this.signupForm.get('conpassword').value) {
-      this.alertMessage = "Your passwords are not matched!";
+      this.alertMessage = "Your passwords do not match!";
     }
     else if(
       await this.authenticationService.SignUp(
@@ -73,7 +73,7 @@ export class SignupPage implements OnInit {
       )
     ){
       this.router.navigate(['contribution']);
-      this.displaySignupSuccess("", "You have signed up successfully");
+      this.displaySignupSuccess("", "You have signed up successfully.");
     }
   }
 
