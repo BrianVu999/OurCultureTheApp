@@ -1,4 +1,24 @@
 <div id="all">
+    <ion-toolbar>
+         <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchValue" (ngModelChange)="searchListener()" id="searchEventBar"
+    (ionClear)="clearlBtnClick()" ngDefaultControl>
+</ion-searchbar>
+</ion-toolbar>
+  
+    
+    <div class="ion-card" id="searchSuggestion">
+        <a *ngFor="let i of displayResults">
+            <div class="suggestedItems" (click)="eventClick(i)" [routerLink]="!i.date ?[]:['/event-detail']">{{ !i.date ? i.name : i.name + " (" + i.date + ")"}}</div>
+        </a>
+    
+</div>
+
+</div>
+
+<!-- <div >
     <div id="header" class="header">
         Our Cultures
     </div>
@@ -27,4 +47,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

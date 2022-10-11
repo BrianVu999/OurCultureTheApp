@@ -30,7 +30,7 @@ export class HomePage implements OnInit {
   viewTitle: string; //calendar title for the calendar view
 
   selectValue: string;
-  eventSource = [];
+  eventSource = []
 
   // The list of events for incoming week
   eventsInComingWeek :any;
