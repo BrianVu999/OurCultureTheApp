@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventDetailPage implements OnInit {
 
-  constructor() { }
+  selectedEvent:any;
+  constructor(private dbService: DatabaseService) { 
+    this.selectedEvent = dbService.selectedEvent.getValue;
+    dbService.selectedEvent.subscribe(result => {
+      this.selectedEvent = result;
+    })
+  }
 
   ngOnInit() {
   }

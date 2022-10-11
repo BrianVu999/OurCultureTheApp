@@ -9,9 +9,9 @@
                 (ionClear)="clearlBtnClick()" ngDefaultControl>
             </ion-searchbar>
             <div class="ion-card" id="searchSuggestion">
-                <a *ngFor="let i of displaySearchableItems | keyvalue" [routerLink]="['/'+i.value]">
-                    <div class="suggestedItems">{{ i.key }}</div>
-                </a>
+                  <a *ngFor="let i of displayResults">
+                    <div class="suggestedItems" (click)="eventClick(i)" [routerLink]="!i.date ?[]:['/event-detail']">{{ !i.date ? i.name : i.name + " (" + i.date + ")"}}</div>
+                  </a>
             </div>
         </div>
 

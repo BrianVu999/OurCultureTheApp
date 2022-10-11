@@ -1,36 +1,46 @@
-import { AlertController, ModalController, RefresherEventDetail } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  RefresherEventDetail,
+} from '@ionic/angular';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
 import { CalendarComponent } from 'ionic2-calendar';
 import { formatDate, WeekDay } from '@angular/common';
-import { Component, ViewChild, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  Input,
+} from '@angular/core';
+import { DatabaseService } from '../services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
 export class HomePage implements OnInit {
-
-
   @ViewChild(CalendarComponent) myCal: CalendarComponent; //@ViewChild to get access to the calendar component
 
   @Input()
   viewTitle: string; //calendar title for the calendar view
 
   selectValue: string;
-  eventSource = []
-  
+  eventSource = [];
 
-
+  // The list of events for incoming week
+  eventsInComingWeek :any;
+  eventsInComingWeekWithoutFilter :any;
 
   event = {
     title: '',
     startTime: null,
     endTime: '',
     allDay: true,
-
   };
 
   //setup the format for the calendar
@@ -39,30 +49,53 @@ export class HomePage implements OnInit {
     currentDate: new Date(), //Instance menthod to find the current day
     startingDayMonth: 1, // 0: Sunday, 1: Monday
 
-    formatDayHeader: "EEEEEE", //Format tge monthly calendar Day Header, EEE=>Mon, EEEE=>Monday, EEEEE=>M, EEEEEE=>Mo
-    formatMonthTitle: "MMM yyyy",//Format the Monthly Calendar Title
+    formatDayHeader: 'EEEEEE', //Format tge monthly calendar Day Header, EEE=>Mon, EEEE=>Monday, EEEEE=>M, EEEEEE=>Mo
+    formatMonthTitle: 'MMM yyyy', //Format the Monthly Calendar Title
 
-    formatWeekViewDayHeader: "EEEEEE d",
+    formatWeekViewDayHeader: 'EEEEEE d',
     formatWeekTitle: "MMM yyyy, 'Week'w",
     startingDayWeek: 1,
 
-    allDayLabel: "Item",
-    showEventDetail: true
+    allDayLabel: 'Item',
+    showEventDetail: true,
   };
 
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
+    private dbService: DatabaseService,
+    private router: Router,
 
-
-    @Inject(LOCALE_ID) private locale: string,
-  ) { }
+    @Inject(LOCALE_ID) private locale: string
+  ) {}
 
   ngOnInit() {
-    this.getFreshData(null)
+    this.dbService.loadAllEvents();
+    this.dbService.allEvents.subscribe((data) => {
+      data.forEach((element, index) => {
+        let tempTime = new Date(
+          new Date().getFullYear(),
+          element.date.substring(5, 7) - 1,
+          element.date.substring(8, 10)
+        );
+
+        let endTime = new Date();
+        endTime.setTime(tempTime.getTime() + 8 * 60 * 60 * 1000);
+
+        let startTime = new Date();
+        startTime.setTime(endTime.getTime() - 4 * 60 * 60 * 1000);
+        data[index]['startTime'] = startTime;
+        data[index]['endTime'] = endTime;
+        data[index]['allDay'] = true;
+        data[index]['title'] = element.name;
+        data[index]['eventType'] = element.eventType;
+      });
+      this.eventSource = data;
+      this.getFreshData(null);
+    });
   }
 
-  // Change current month/week to next Month =>instance method 
+  // Change current month/week to next Month =>instance method
   next() {
     this.myCal.slideNext();
   }
@@ -82,52 +115,44 @@ export class HomePage implements OnInit {
 
   //refresh the data
   getFreshData(event) {
-    this.createRandomEvents()
-    this.allItems = this.eventSource.filter((item) => {
-      return item.endTime > Date.now()&&(this.allItems = this.eventSource);
-
-    })
-    if (event)
-      event.target.complete()
-
-
+    this.eventsInComingWeek = this.eventSource.filter((item) => {
+      return (
+        // get events in upcoming week (7 days including today)
+        item.endTime >= Date.now() &&
+        item.endTime <= new Date().setTime(Date.now() + 6*24*60*60*1000 ) &&
+        (this.eventsInComingWeek = this.eventSource)
+      );
+    });
+    if (event) event.target.complete();
+    this.eventsInComingWeekWithoutFilter = this.eventsInComingWeek;
   }
 
   //get the event type color showing on the weekday calendar
   getColor(eventType) {
     switch (eventType) {
-      case 'Local Holiday':
+      case 'local':
         return '#3171e0';
-      case 'Celebration':
+      case 'celebration':
         return '#36abe0';
-      case 'Statutory Holiday':
+      case 'statutory':
         return '#28ba62';
     }
   }
 
   //Filter works now!!! But can't identify LocalDay()
-  allItems = this.eventSource;
 
   upDate(sel: any) {
     this.selectValue = sel.target.value;
 
-    if (this.selectValue && this.selectValue.trim() !== '') {
-      this.allItems = this.eventSource.filter((item) => {
-        return (item.eventType.toLowerCase().indexOf(this.selectValue.toLowerCase()) > -1) && item.endTime > Date.now();
+    if (!this.selectValue || this.selectValue == 'all') {
+      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter;
+    } else{
+      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter.filter((item) => {
+        return item.endTime >= Date.now() && 
+        item.eventType == this.selectValue && 
+        (this.eventsInComingWeek = this.eventSource);
       });
-    } else {
-      this.allItems = this.eventSource.filter((item) => {
-        return item.endTime > Date.now()&&(this.allItems = this.eventSource);
-
-      })
-  }
-
-    if (this.selectValue == 'all') {
-      this.allItems = this.eventSource.filter((item) => {
-        return item.endTime > Date.now()&&(this.allItems = this.eventSource);
-      })
-  }
-
+    }
   }
 
   createRandomEvents() {
@@ -164,10 +189,9 @@ export class HomePage implements OnInit {
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventType: 'Celebration'
+          eventType: 'Celebration',
         });
-      }
-      else if (eventType === 1) {
+      } else if (eventType === 1) {
         startTime = new Date(
           Date.UTC(
             date.getUTCFullYear(),
@@ -190,12 +214,9 @@ export class HomePage implements OnInit {
           startTime: startTime,
           endTime: endTime,
           allDay: true,
-          eventType: 'Local Holiday'
+          eventType: 'Local Holiday',
         });
-      }
-
-
-      else {
+      } else {
         startTime = new Date(
           Date.UTC(
             date.getUTCFullYear(),
@@ -221,36 +242,26 @@ export class HomePage implements OnInit {
           eventType: 'Statutory Holiday',
         });
       }
-
     }
     this.eventSource = events;
   }
-
 
   removeEvents() {
     this.eventSource = [];
   }
 
   // Calendar event was clicked
-  async onEventSelected(event) {
-    // Use Angular date pipe for conversion
-    let end = formatDate(event.endTime, 'medium', this.locale).slice(0, 12);
-
-    const alert = await this.alertCtrl.create({
-      header: event.title,
-      message: event.eventType + ", " + end,
-      buttons: ['OK'],
-    });
-    alert.present();
+  async onEventSelected(selectedEvent) {
+    this.router.navigate(['/event-detail'])
+    this.dbService.updateSelectedEvent(selectedEvent)
   }
-
 
   //No need so far
   async openCalModal() {
     const modal = await this.modalCtrl.create({
       component: CalModalPage,
       cssClass: 'cal-modal',
-      backdropDismiss: false
+      backdropDismiss: false,
     });
 
     await modal.present();
@@ -280,5 +291,7 @@ export class HomePage implements OnInit {
       }
     });
   }
-
+  eventClick(selectedEvent){
+    this.dbService.updateSelectedEvent(selectedEvent);
+  }
 }
