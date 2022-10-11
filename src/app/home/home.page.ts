@@ -23,8 +23,6 @@ export class HomePage implements OnInit {
   eventSource = []
   
 
-
-
   event = {
     title: '',
     startTime: null,
