@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   @Input()
   viewTitle: string; //calendar title for the calendar view
 
-  selectValue: string;
+  selectValue: string
   eventSource = []
 
   // The list of events for incoming week
