@@ -1,7 +1,8 @@
 {
   "name": "ourCultureTheApp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

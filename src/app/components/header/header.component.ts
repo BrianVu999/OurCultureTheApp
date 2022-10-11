@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-header',
@@ -8,27 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   searchValue:string = ""
-
-  searchableItems:any = {
-    'Oct 8 Milad un Nabi (Mawlid), Muslim':'event-detail',
-    'Oct 10 First day of Sukkot, Jewish Holiday':'event-detail',
-    'Oct 10 Thanksgiving Day, Statutory Holiday':'event-detail',
-    'Oct 11 Thanksgiving Day, Statutory Holiday':'event-detail',
-    'Oct 12 Thanksgiving Day, Statutory Holiday':'event-detail',
-    'Oct 13 Thanksgiving Day, Statutory Holiday':'event-detail',
-    'Oct 14 Thanksgiving Day, Statutory Holiday':'event-detail',
-    'Oct 15 Thanksgiving Day, Statutory Holiday':'event-detail',
-    
-  }
-
-  displaySearchableItems:any = {}
+  allEvents:any
   
-  constructor() {
-
+  displayResults:any
+  
+  constructor(private dbService: DatabaseService){
+    this.allEvents = dbService.allEvents
+    dbService.allEvents.subscribe(allEvents => {
+      this.allEvents = allEvents
+    })
   }
+  
   searchListener = () => {
     //Refresh/Clear drop-down list
-    this.displaySearchableItems = {}
+    this.displayResults = []
 
     //When search input is blank
     if(!this.searchValue || !this.searchValue.trim()){
@@ -37,21 +31,37 @@ export class HeaderComponent implements OnInit {
 
     //Find and display items drop-down list, 
     //it will make database call in the future instead of search in an array for now
-    for (const key in this.searchableItems) {
-      //.replace(/ /g, "") to remove space
-      if(key.replace(/ /g, "").toUpperCase().includes(this.searchValue.trim().replace(/ /g, "").toUpperCase())){
-        this.displaySearchableItems[key]=this.searchableItems[key]
+    
+    // for (const key in this.searchableItems) {
+    //   //.replace(/ /g, "") to remove space
+    //   if(key.replace(/ /g, "").toUpperCase().includes(this.searchValue.trim().replace(/ /g, "").toUpperCase())){
+    //     this.displayResults[key]=this.searchableItems[key]
+    //   }
+    // }
+
+    for(let i = 0; i < this.allEvents.length; i++){
+      if((this.allEvents[i].name+this.allEvents[i].date).replace(/ /g, "").toUpperCase().includes(this.searchValue.trim().replace(/ /g, "").toUpperCase())){
+        this.displayResults.push(this.allEvents[i])
+        //Limit result only 20 events
+        if(this.displayResults.length == 20){
+          return;
+        }
       }
     }
-    
-    if(Object.keys(this.displaySearchableItems).length===0){
-      this.displaySearchableItems = {'Cannot find a matching event':''}
+    if(this.displayResults.length==0){
+      this.displayResults = [{name: 'Cannot find a matching event'}]
     }
 
   }
   clearlBtnClick= ()=> {
     this.searchValue="";
-    this.displaySearchableItems = {};
+    this.displayResults = []
+  }
+
+  eventClick(selectedEvent){
+    this.dbService.updateSelectedEvent(selectedEvent);
+    this.searchValue = ""
+    this.displayResults = []
   }
 
   ngOnInit() {}
