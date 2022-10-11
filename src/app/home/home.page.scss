@@ -98,6 +98,22 @@ ion-button:hover {
     background-color:var(--ion-color-primary) !important;
     font-size: 20px;
   }
+
+  .event-detail-container{
+    overflow: hide;
+    display: flexbox;
+  }
+  .monthview-eventdetail-timecolumn{
+    font-size: 12px!important;
+    width: 20%;
+    display: none;
+  }
+
+  .event-detail{
+    font-size: 12px!important;
+    overflow: hidden;
+    width: 80%;
+  }
 }
 
 .with-event {
@@ -136,3 +152,5 @@ ion-item:hover {
 .weekview-allday-label{
   font-size: larger;
 }
+
+

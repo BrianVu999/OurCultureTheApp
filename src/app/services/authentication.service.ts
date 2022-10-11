@@ -23,12 +23,12 @@ export class AuthenticationService {
     await this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log('You are Successfully signed up!', res);
+        console.log('You have successfully signed up!', res);
         result = true;
         this.db.saveUser(res.user.uid, email, password, name)
       })
       .catch((error) => {
-        this.errorMsg.next('Your account is already existed!');
+        this.errorMsg.next('Your account already exists!');
         console.log(error.code);
       });
     return result;
@@ -47,7 +47,7 @@ export class AuthenticationService {
       })
       .catch((error) => {
         if (error.code == 'auth/user-not-found') {
-          this.errorMsg.next('Your account is not existed!');
+          this.errorMsg.next('Your account does not exist!');
         } else {
           this.errorMsg.next('Your password is wrong!');
         }

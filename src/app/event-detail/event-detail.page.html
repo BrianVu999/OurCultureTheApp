@@ -1,18 +1,18 @@
-<ion-header  style="background-color: #222222;">
+<ion-header  >
     <div>
         <app-header></app-header>
     </div>
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
+<ion-content >
     <ion-grid style="width: 95%;">
         <ion-list>
             <ion-list-header class="ion-text-center">
                 <ion-back-button defaultHref="home" style="font-size: 15px;"></ion-back-button>
             </ion-list-header>
             <ion-list-header class="ion-text-center">
-                <h2 style="margin-top: 10px;">Event: {{selectedEvent.name}}</h2>
+                <h2 style="margin-top: 10px;">{{selectedEvent.name}}</h2>
             </ion-list-header>
             <ion-item>
                 <ion-label>
