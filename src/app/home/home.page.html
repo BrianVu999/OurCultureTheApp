@@ -70,12 +70,14 @@
             </div>
         </ng-template>
 
-        <ng-template #WeeklyTemplate let-displayEvent="displayEvent" let-showEventDetail="showEventDetail"
+        <ng-template  #WeeklyTemplate let-displayEvent="displayEvent" let-showEventDetail="showEventDetail"
             let-noEventsLabel="noEventsLabel">
+            
             <ul class="calendar-event-inner" ngFor="let i of events">
                 <li [ngStyle]="{'background-color':getColor(displayEvent.event.eventType)}">
-                    {{displayEvent.event.eventType}}</li>
+                    {{displayEvent.event.title}}</li>
             </ul>
+        
         </ng-template>
     </div>
 
@@ -119,8 +121,8 @@
         <div *ngIf="(eventSource.length != 0|| selectValue==all)">
             <ion-list class="eventList">
                 <ion-item *ngFor=" let item of eventsInComingWeek; let i=index">
-                    <ion-label [routerLink]="['/event-detail']" (click)="eventClick(item)">{{item.endTime|date:'MMM dd'}}, {{item.title}},
-                        {{item.eventType}}</ion-label>
+                    <ion-label [routerLink]="['/event-detail']" (click)="eventClick(item)">{{item.endTime|date:'MMM dd'}} - {{item.title}}
+                        ({{item.eventType}})</ion-label>
                 </ion-item>
             </ion-list> 
         </div>

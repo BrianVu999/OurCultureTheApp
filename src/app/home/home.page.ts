@@ -56,7 +56,7 @@ export class HomePage implements OnInit {
     formatWeekTitle: "MMM yyyy, 'Week'w",
     startingDayWeek: 1,
 
-    allDayLabel: 'Item',
+    allDayLabel: 'Event',
     showEventDetail: true,
   };
 
