@@ -6,7 +6,6 @@ import {
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
 
 import { CalendarComponent } from 'ionic2-calendar';
-import { formatDate, WeekDay } from '@angular/common';
 import {
   Component,
   ViewChild,
@@ -33,8 +32,8 @@ export class HomePage implements OnInit {
   eventSource = []
 
   // The list of events for incoming week
-  eventsInComingWeek :any;
-  eventsInComingWeekWithoutFilter :any;
+  eventsInComingWeek: any;
+  eventsInComingWeekWithoutFilter: any;
 
   event = {
     title: '',
@@ -52,12 +51,12 @@ export class HomePage implements OnInit {
     formatDayHeader: 'EEEEEE', //Format tge monthly calendar Day Header, EEE=>Mon, EEEE=>Monday, EEEEE=>M, EEEEEE=>Mo
     formatMonthTitle: 'MMM yyyy', //Format the Monthly Calendar Title
 
-    formatWeekViewDayHeader: 'EEEEEE d',
-    formatWeekTitle: "MMM yyyy, 'Week'w",
-    startingDayWeek: 1,
+    formatWeekViewDayHeader: 'EEEEEE d',//week header
+    formatWeekTitle: "MMM yyyy, 'Wk 'w", //week title show month year and Nth week in the current year
+    startingDayWeek: 1,//start the week day from Monday
 
-    allDayLabel: 'Event',
-    showEventDetail: true,
+    allDayLabel: 'Event', // define the label for event 
+    showEventDetail: true //show event detail for monthly calendar, not works for week and day
   };
 
   constructor(
@@ -67,7 +66,7 @@ export class HomePage implements OnInit {
     private router: Router,
 
     @Inject(LOCALE_ID) private locale: string
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.dbService.loadAllEvents();
@@ -84,6 +83,7 @@ export class HomePage implements OnInit {
 
         let startTime = new Date();
         startTime.setTime(endTime.getTime() - 4 * 60 * 60 * 1000);
+
         data[index]['startTime'] = startTime;
         data[index]['endTime'] = endTime;
         data[index]['allDay'] = true;
@@ -91,10 +91,60 @@ export class HomePage implements OnInit {
         data[index]['eventType'] = element.eventType;
       });
       this.eventSource = data;
-      this.getFreshData(null);
+      this.getFreshData(null); //fresh data every time we open the application
     });
   }
 
+
+  // code under the construction for next sprint
+  selectedDate: Date;
+
+  //method to refresh the data
+  getFreshData(event) {
+    //filter to get the array list in the coming week
+    this.eventsInComingWeek = this.eventSource.filter((item) => {
+      return (
+        // get events in upcoming week (7 days including today)
+        item.endTime >= Date.now() &&
+        item.endTime <= new Date().setTime(Date.now() + 6 * 24 * 60 * 60 * 1000) &&
+        (this.eventsInComingWeek = this.eventSource)
+      );
+    });
+    //stop the icon turning arround when the pull down the page
+    if (event) event.target.complete();
+
+    this.eventsInComingWeekWithoutFilter = this.eventsInComingWeek;
+  }
+
+  //get the event type color showing on the weekday calendar
+  getColor(eventType) {
+    switch (eventType) {
+      case 'local'||'Local':
+        return '#53c2b4';
+      case 'celebration'||'Celebration':
+        return '#F26a78';
+      case 'statutory'||'Statutory Holiday':
+        return '#D88352';
+    }
+  }
+
+  //functions in the selectors to get the coming weeks event array when calling
+  upDate(sel: any) {
+    //get the value from the selector
+    this.selectValue = sel.target.value;
+    //load the value if user not select or select "all" 
+    if (!this.selectValue || this.selectValue == 'all') {
+      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter;
+    }
+    //filterfor each type user selected
+    else {
+      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter.filter((item) => {
+        return item.endTime >= Date.now() &&
+          item.eventType == this.selectValue &&
+          (this.eventsInComingWeek = this.eventSource);
+      });
+    }
+  }
   // Change current month/week to next Month =>instance method
   next() {
     this.myCal.slideNext();
@@ -110,51 +160,8 @@ export class HomePage implements OnInit {
     this.viewTitle = title;
   }
 
-  // code under the construction for next sprint
-  selectedDate: Date;
 
-  //refresh the data
-  getFreshData(event) {
-    this.eventsInComingWeek = this.eventSource.filter((item) => {
-      return (
-        // get events in upcoming week (7 days including today)
-        item.endTime >= Date.now() &&
-        item.endTime <= new Date().setTime(Date.now() + 6*24*60*60*1000 ) &&
-        (this.eventsInComingWeek = this.eventSource)
-      );
-    });
-    if (event) event.target.complete();
-    this.eventsInComingWeekWithoutFilter = this.eventsInComingWeek;
-  }
-
-  //get the event type color showing on the weekday calendar
-  getColor(eventType) {
-    switch (eventType) {
-      case 'local':
-        return '#3171e0';
-      case 'celebration':
-        return '#36abe0';
-      case 'statutory':
-        return '#28ba62';
-    }
-  }
-
-  //Filter works now!!! But can't identify LocalDay()
-
-  upDate(sel: any) {
-    this.selectValue = sel.target.value;
-
-    if (!this.selectValue || this.selectValue == 'all') {
-      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter;
-    } else{
-      this.eventsInComingWeek = this.eventsInComingWeekWithoutFilter.filter((item) => {
-        return item.endTime >= Date.now() && 
-        item.eventType == this.selectValue && 
-        (this.eventsInComingWeek = this.eventSource);
-      });
-    }
-  }
-
+  //not use anymore
   createRandomEvents() {
     var events = [];
 
@@ -291,7 +298,7 @@ export class HomePage implements OnInit {
       }
     });
   }
-  eventClick(selectedEvent){
+  eventClick(selectedEvent) {
     this.dbService.updateSelectedEvent(selectedEvent);
   }
 }
