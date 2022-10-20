@@ -1,5 +1,5 @@
 #cal{
-  background-color: lightcyan !important;
+  background-color: #fbf0dc!important;
   min-width: 300px; 
   padding: 0%;
   width: 95%;
@@ -43,7 +43,7 @@ a {
   font-size: 12px;
   border-radius: 5px;
   margin-right: 1%;
-  background-color: lightskyblue;
+  background-color: #FBAC33;
 }
 
 #selector {
@@ -81,7 +81,7 @@ ion-button:hover {
 }
 
 .event-indicator {
-  background: var(--ion-color-secondary);
+  background: #FFD146;
   width: 5px;
   height: 5px;
   border-radius: 2px;
@@ -90,13 +90,12 @@ ion-button:hover {
 
 :host ::ng-deep {
   .monthview-primary-with-event {
-    background-color: lightcyan !important;
+    background-color: #f29b52 !important;
   }
 
   .monthview-selected {
     color: white!important;
-    background-color:var(--ion-color-primary) !important;
-    font-size: 20px;
+    background-color:#f27786!important;
   }
 
   .event-detail-container{
@@ -105,15 +104,28 @@ ion-button:hover {
   }
   .monthview-eventdetail-timecolumn{
     font-size: 12px!important;
-    width: 20%;
     display: none;
   }
 
   .event-detail{
     font-size: 12px!important;
     overflow: hidden;
-    width: 80%;
   }
+
+  .weekview-allday-label{
+    font-size: 10px!important;
+  }
+  .dayview-allday-label{
+    font-size: 10px!important;
+  }
+  td, th,tbody,table {
+    border: 0 !important;
+    height: fit-content!important;
+  }
+  .monthview-currentDate{
+    background-color: green!important;
+  }
+
 }
 
 .with-event {
@@ -126,6 +138,20 @@ ion-button:hover {
   color: white;
   height: 100%;
   width: 100%;
+  padding: 2px;
+  font-size: 12px;
+}
+.day-calendar-event-inner {
+  color: white;
+  font-size: 12px;
+  width: 100%;
+  text-align: start;
+}
+
+
+.calendar-event{
+  overflow: hidden;
+  color: white;
   padding: 2px;
   font-size: 12px;
 }
@@ -149,8 +175,14 @@ ion-item{
 ion-item:hover {
   font-weight: 500;
 }
-.weekview-allday-label{
-  font-size: larger;
+ul{
+  text-align: left;
 }
 
-
+ion-segment-button {
+  color:#DD8174;
+  font-weight: 700;
+}
+ion-icon{
+  color:#f27786;
+}

@@ -1,8 +1,8 @@
- <ion-header>
+<ion-header>
     <div>
         <app-header></app-header>
     </div>
-</ion-header> 
+</ion-header>
 
 
 
@@ -21,6 +21,10 @@
             <ion-segment-button value="week">
                 <ion-label>Week</ion-label>
             </ion-segment-button>
+
+            <ion-segment-button value="day">
+                <ion-label>Day</ion-label>
+            </ion-segment-button>
         </ion-segment>
     </div>
 
@@ -29,7 +33,7 @@
             <!-- Move back one screen of the slides -->
             <ion-col size="2">
                 <ion-button fill="clear" (click)="back()">
-                    <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+                    <ion-icon name="arrow-back" slot="icon-only" ></ion-icon>
                 </ion-button>
             </ion-col>
 
@@ -50,10 +54,10 @@
         <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
             (onTitleChanged)="onViewTitleChanged($event)" (onEventSelected)="onEventSelected($event)"
             [formatDayHeader]="calendar.formatDayHeader" [startingDayMonth]="calendar.startingDayMonth"
-            [startingDayWeek]="calendar.startingDayWeek" [formatMonthTitle]="calendar.formatMonthTitle"
-            [formatWeekTitle]="calendar.formatWeekTitle" [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader"
-            [allDayLabel]="calendar.allDayLabel" [monthviewDisplayEventTemplate]="monthlyTemplate"
-            [weekviewAllDayEventTemplate]="WeeklyTemplate"
+            [formatMonthTitle]="calendar.formatMonthTitle" [monthviewDisplayEventTemplate]="monthlyTemplate"
+            [startingDayWeek]="calendar.startingDayWeek" [formatWeekTitle]="calendar.formatWeekTitle"
+            [formatWeekViewDayHeader]="calendar.formatWeekViewDayHeader" [allDayLabel]="calendar.allDayLabel"
+            [weekviewAllDayEventTemplate]="WeeklyTemplate" [dayviewAllDayEventSectionTemplate]="dayTemplate"
             [showEventDetail]="calendar.showEventDetail">
         </calendar>
         <!--Template to show the calendar dates and events-->
@@ -65,19 +69,27 @@
                 {{view.dates[row*7+col].label}}
                 <!--Show the indicators(selected days with indicated backgroud color and dots)-->
                 <div class="indicator-container">
-                    <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events"></div>
+                    <div class="event-indicator" *ngFor="let e of view.dates[row*7+col].events" ></div>
                 </div>
             </div>
         </ng-template>
 
-        <ng-template  #WeeklyTemplate let-displayEvent="displayEvent" let-showEventDetail="showEventDetail"
+        <!--Call week template and define the contents-->
+        <ng-template #WeeklyTemplate let-displayEvent="displayEvent" let-showEventDetail="showEventDetail"
             let-noEventsLabel="noEventsLabel">
-            
             <ul class="calendar-event-inner" ngFor="let i of events">
                 <li [ngStyle]="{'background-color':getColor(displayEvent.event.eventType)}">
                     {{displayEvent.event.title}}</li>
             </ul>
+        </ng-template>
         
+        <!--Call day template and define the contents-->
+        <ng-template #dayTemplate let-allDayEvents="allDayEvents" let-eventTemplate="eventTemplate">
+            <ul *ngFor="let displayEvent of allDayEvents; let eventIndex=index" class="day-calendar-event-inner" tappable
+                (click)="onEventSelected(displayEvent.event)">
+                    <ol [ngStyle]="{'width': '85%','height':'20px','background-color':getColor(displayEvent.event.eventType)}">
+                        {{displayEvent.event.title}}</ol>
+            </ul>
         </ng-template>
     </div>
 
@@ -106,33 +118,38 @@
                 </p>
             </ion-col>
             <ion-col>
-                <ion-select interface="action-sheet" class="selector"
-                    (ionChange)="upDate($event)" value="all">
+                <!--options in the selector, function to call the update the selected value and fresh the arraylist needed -->
+                <ion-select interface="action-sheet" class="selector" (ionChange)="upDate($event)" value="all">
                     <ion-select-option value="all">All Events</ion-select-option>
                     <ion-select-option value="celebration">Celebration</ion-select-option>
                     <ion-select-option value="local">Local Holiday</ion-select-option>
-                    <ion-select-option value="statutory">Statutory Holiday</ion-select-option>
-                    
+                    <ion-select-option value="statutory||Statutory Holiday">Statutory Holiday</ion-select-option>
+
                 </ion-select>
             </ion-col>
 
         </ion-row>
 
+        <!--ngIf dynamic div and showing a list of coming week events, including the event date and event title-->
         <div *ngIf="(eventSource.length != 0|| selectValue==all)">
             <ion-list class="eventList">
                 <ion-item *ngFor=" let item of eventsInComingWeek; let i=index">
-                    <ion-label [routerLink]="['/event-detail']" (click)="eventClick(item)">{{item.endTime|date:'MMM dd'}} - {{item.title}}
+                    <ion-label [routerLink]="['/event-detail']" (click)="eventClick(item)">{{item.endTime|date:'MMM
+                        dd'}} - {{item.title}}
                         ({{item.eventType}})</ion-label>
                 </ion-item>
-            </ion-list> 
+            </ion-list>
         </div>
 
+        <!--ngIf dynamic div, show "No matching events in this week" if coming week events array 
+            didn't get any events to be added to match with the selected value-->
         <div *ngIf="eventSource.length != 0&&eventsInComingWeek.length==0">
             <ion-list class="eventList">
                 <h5 style="text-align: center;">No matching events in this week</h5>
             </ion-list>
         </div>
 
+        <!--ngIf dynamic div, show "No coming events in this week" if coming week events array is empty-->
         <div *ngIf="eventSource.length==0">
             <ion-list class="eventList">
                 <h5 style="text-align: center;">No coming events in this week</h5>
