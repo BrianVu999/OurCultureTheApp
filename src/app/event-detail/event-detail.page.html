@@ -6,6 +6,7 @@
 
 
 <ion-content >
+    <script type="text/javascript" src="js/SocialSharing.js"></script>
     <ion-grid style="width: 95%;">
         <ion-list>
             <ion-list-header class="ion-text-center">
@@ -59,4 +60,25 @@
             </ion-item>
         </ion-list>
     </ion-grid>
+    <br>
+    
+    <div style="display: flexbox;text-align: center;">
+
+        <h4>You Can Share Via: </h4>
+
+        <ion-button (click)="shareViaTwitter()" fill="clear">
+            <ion-icon name="logo-twitter" slot="icon-only"></ion-icon>
+        </ion-button>
+        
+        <ion-button (click)="shareViaEmail()" fill="clear">
+            <ion-icon name="mail-open" slot="icon-only"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="shareViaWhatsapp()" fill="clear">
+            <ion-icon name="logo-whatsapp" slot="icon-only"></ion-icon>
+        </ion-button>
+
+    </div>
+    
+    <br>
 </ion-content>

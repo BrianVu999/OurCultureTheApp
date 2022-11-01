@@ -14,6 +14,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,7 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,HttpClientModule, provideFirebaseApp(() => initializeApp(environment.firebase)), provideAuth(() => getAuth()), provideFirestore(() => getFirestore())],
-  providers: [NativeStorage, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [NativeStorage, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SocialSharing],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
