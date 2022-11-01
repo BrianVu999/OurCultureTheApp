@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { FacebookAuthProvider } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-event-detail',
@@ -9,14 +11,64 @@ import { DatabaseService } from '../services/database.service';
 export class EventDetailPage implements OnInit {
 
   selectedEvent:any;
-  constructor(private dbService: DatabaseService) { 
+  constructor(private dbService: DatabaseService,private socialSharing: SocialSharing) { 
     this.selectedEvent = dbService.selectedEvent.getValue;
     dbService.selectedEvent.subscribe(result => {
+
       this.selectedEvent = result;
     })
   }
+  messageDate=" "
+  messageTitle=" "
+  messageType=" "
+  messageActivity=" "
+  messageReason=" "
+  eventMessage=" "
 
   ngOnInit() {
   }
 
+  getMessage(){
+  this.messageDate=this.selectedEvent.date
+  this.messageTitle=this.selectedEvent.name
+  this.messageType=this.selectedEvent.eventType
+  this.messageActivity=this.selectedEvent.activity
+  this.messageReason=this.selectedEvent.reason
+  this.eventMessage="Event: "+this.messageTitle+"\n"+"Date: "+this.messageDate+"\n"+
+                    "Type: "+this.messageType+this.messageActivity+"\n"+"BY: #OURCULTUREAPP"
+  }
+
+  shareViaTwitter() {
+    this.getMessage()
+    console.log(this.eventMessage);
+    this.socialSharing.shareViaTwitter(this.eventMessage, this.messageTitle, null)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }
+
+  shareViaEmail() {
+    this.getMessage()
+    console.log(this.eventMessage);
+    this.socialSharing.shareViaEmail(this.eventMessage,this.messageTitle, null)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }
+
+  shareViaWhatsapp() {
+    this.socialSharing.shareViaWhatsApp(this.eventMessage,this.messageTitle)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }
 }
