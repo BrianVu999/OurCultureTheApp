@@ -66,10 +66,12 @@ export class HomePage implements OnInit {
     private router: Router,
 
     @Inject(LOCALE_ID) private locale: string
-  ) { }
+  ) { 
+    this.dbService.loadAllEvents();
+  }
 
   ngOnInit() {
-    this.dbService.loadAllEvents();
+    
     this.dbService.allEvents.subscribe((data) => {
       data.forEach((element, index) => {
         let tempTime = new Date(

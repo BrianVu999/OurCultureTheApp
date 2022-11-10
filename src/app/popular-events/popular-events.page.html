@@ -10,9 +10,9 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-list-header>Top Popular Searching Events:</ion-list-header>
-    <ion-item *ngFor=" let item of eventsArray; let i=index">
-      <ion-lable [routerLink]="['/event-detail']">{{i+1}}. {{item}}</ion-lable>
+    <ion-list-header>Top Popular Events:</ion-list-header>
+    <ion-item *ngFor="let item of topPopularEvents; let i=index">
+      <ion-lable (click)="eventClick(item)" [routerLink]="['/event-detail']">{{i+1}}. {{item.name}}</ion-lable>
     </ion-item>
   </ion-list>
 
