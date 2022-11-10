@@ -5,7 +5,7 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
+<ion-content >
     <br><br>
     <div style="width: fit-content; margin: auto;text-align: center;">
         <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
@@ -39,7 +39,7 @@
             </div>
             <br>
             <ion-row style="margin-left: 35%;">
-                <ion-button type="submit" color="secondary" size="small">Register</ion-button>
+                <button type="submit" color="secondary" size="small">Register</button>
             </ion-row>
         </form>
         <br><br>

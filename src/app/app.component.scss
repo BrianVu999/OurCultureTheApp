@@ -1,18 +1,18 @@
 #all{
-    background-color: #60a1b9e7;
-   
+   background-color: #f29b52;
+   //background-image: url("../assets/image.jpg");
 }
 
 ion-toolbar {
-    --background: #60a1b9e7;
-    
+   --background: #f29b52;
+  //  --background: url("../assets/image.jpg");
     justify-content: left;
     align-items: left;
    // color: white;
 }
 
 ion-content{
-    --background: #add8e6dc;
+    --background: #db7c2e81;
     height: calc(100vh - 98px);
     border-radius: 10px;
     
@@ -32,11 +32,11 @@ ion-title{
 }
 
 ion-item{
-    --background: #add8e6dc;
+    --background: #db7c2e81;
 }
 
 ion-list{
-    --background: #add8e6dc;
+    --background: #db7c2e81;
     margin: 0;
     padding: 0;
 }
