@@ -7,13 +7,17 @@
 
 <ion-content >
     <script type="text/javascript" src="js/SocialSharing.js"></script>
+    <script type="text/javascript" src="js/LocalNotifications.js"></script>
     <ion-grid style="width: 95%;">
         <ion-list>
             <ion-list-header class="ion-text-center">
                 <ion-back-button defaultHref="home" style="font-size: 15px;"></ion-back-button>
             </ion-list-header>
             <ion-list-header class="ion-text-center">
-                <h2 style="margin-top: 10px;">{{selectedEvent.name}}</h2>
+                
+                <ion-button class="notify" (click)="notify()" fill="clear"> Notify me
+                </ion-button>
+
             </ion-list-header>
             <ion-item>
                 <ion-label>

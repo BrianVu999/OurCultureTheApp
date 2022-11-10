@@ -6,7 +6,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { ComponentsModule } from '../components/components.module';
 import { CalModalPageModule } from '../pages/cal-modal/cal-modal.module';
-
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 
 import { NgCalendarModule  } from 'ionic2-calendar';
 

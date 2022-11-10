@@ -17,6 +17,11 @@ import {
 import { DatabaseService } from '../services/database.service';
 import { Router } from '@angular/router';
 
+//import {Plugins, LocalNotificationEnableResult, LocalNotificattionActionPerformed, LocalNotifications, Device} from '@capacitor/core';
+
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -64,11 +69,17 @@ export class HomePage implements OnInit {
     private modalCtrl: ModalController,
     private dbService: DatabaseService,
     private router: Router,
-
+    
     @Inject(LOCALE_ID) private locale: string
   ) { }
 
-  ngOnInit() {
+
+  
+
+   async ngOnInit() {
+
+  
+
     this.dbService.loadAllEvents();
     this.dbService.allEvents.subscribe((data) => {
       data.forEach((element, index) => {
@@ -93,6 +104,9 @@ export class HomePage implements OnInit {
       this.eventSource = data;
       this.getFreshData(null); //fresh data every time we open the application
     });
+
+   
+    
   }
 
 
