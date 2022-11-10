@@ -34,8 +34,11 @@ export class EventDetailPage implements OnInit {
   this.messageType=this.selectedEvent.eventType
   this.messageActivity=this.selectedEvent.activity
   this.messageReason=this.selectedEvent.reason
-  this.eventMessage="Event: "+this.messageTitle+"\n"+"Date: "+this.messageDate+"\n"+
-                    "Type: "+this.messageType+this.messageActivity+"\n"+"BY: #OURCULTUREAPP"
+  this.eventMessage="Event: "+this.messageTitle+"\n"+
+                    "Date: "+this.messageDate+"\n"+
+                    "Type: "+this.messageType+"\n"+
+                    "Things to do: "+this.messageActivity+"\n"+
+                    "BY: #OURCULTUREAPP"
   }
 
   shareViaTwitter() {
