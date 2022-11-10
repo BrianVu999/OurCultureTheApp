@@ -10,7 +10,6 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./popular-events.page.scss'],
 })
 export class PopularEventsPage implements OnInit {
-
   topPopularEvents: any = [];
 
   constructor(
@@ -18,36 +17,31 @@ export class PopularEventsPage implements OnInit {
     public alertControl: AlertController,
     private db: DatabaseService
   ) {
-    this.updateTopPopularEvents(this.db.allEvents.getValue())
     this.db.allEvents.subscribe((data) => {
-      this.updateTopPopularEvents(this.db.allEvents)
-      console.log(this,db.allEvents);
-    })
+      this.topPopularEvents = [];
+      this.updateTopPopularEvents(data);
+    });
   }
 
-  item:any;
+  item: any;
 
-  updateTopPopularEvents(allEvents){
+  updateTopPopularEvents(allEvents) {
     allEvents.forEach((element) => {
-      if(element.isPopular == true){
+      if (element.isPopular == true) {
         this.topPopularEvents.push(element);
       }
-    })
+    });
   }
 
-  eventClick(selectedEvent){
+  eventClick(selectedEvent) {
     this.db.updateSelectedEvent(selectedEvent);
   }
-  
+
   ngOnInit() {
-    this.getFreshData(null)
+    this.getFreshData(null);
   }
 
-  getFreshData(event){
-    if (event)
-          event.target.complete()
-
+  getFreshData(event) {
+    if (event) event.target.complete();
   }
-
-
 }
