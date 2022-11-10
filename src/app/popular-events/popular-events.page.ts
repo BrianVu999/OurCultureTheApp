@@ -10,28 +10,38 @@ import { DatabaseService } from '../services/database.service';
   styleUrls: ['./popular-events.page.scss'],
 })
 export class PopularEventsPage implements OnInit {
+  topPopularEvents: any = [];
 
   constructor(
     public formBuilder: FormBuilder,
     public alertControl: AlertController,
-    private router: Router,
     private db: DatabaseService
-  ) {}
+  ) {
+    this.db.allEvents.subscribe((data) => {
+      this.topPopularEvents = [];
+      this.updateTopPopularEvents(data);
+    });
+  }
 
-  item:any;
+  item: any;
 
-  eventsArray= ['Christmas Eve, Christian','First day of Sukkot, Jewish Holiday','Ramadan, Muslim','Thanksgiving Day, Statutory Holiday',
-  'Milad un Nabi (Mawlid), Indian','Easter Monday, Christian','Good Friday, Christian','Eid al-Fitr, Muslim','St. Valentines Day, Christian']
-  
+  updateTopPopularEvents(allEvents) {
+    allEvents.forEach((element) => {
+      if (element.isPopular == true) {
+        this.topPopularEvents.push(element);
+      }
+    });
+  }
+
+  eventClick(selectedEvent) {
+    this.db.updateSelectedEvent(selectedEvent);
+  }
+
   ngOnInit() {
-    this.getFreshData(null)
+    this.getFreshData(null);
   }
 
-  getFreshData(event){
-    if (event)
-          event.target.complete()
-
+  getFreshData(event) {
+    if (event) event.target.complete();
   }
-
-
 }

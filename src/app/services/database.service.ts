@@ -12,7 +12,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DatabaseService {
   userdb = this.db.collection('user');
   eventdb = this.db.collection('event');
-  allEvents = new Subject<any>();
+  allEvents = new BehaviorSubject<any>([]);
   selectedEvent = new BehaviorSubject<any>("");
 
   constructor(
@@ -21,6 +21,11 @@ export class DatabaseService {
   ) {
     this.loadEventsBasedOnMonth("09");
   }
+
+  ngOnInit(){
+    this.loadAllEvents();
+  }
+
   saveUser(uid, email, password, name) {
     this.userdb.doc(uid).set({
       email: email,
@@ -42,6 +47,7 @@ export class DatabaseService {
       reason: newEvent.reason,
       activity: newEvent.activity,
       isApproved: false,
+      isPopular: false,
       isApprovedBy: '',
     };
     console.log(event);
@@ -49,6 +55,7 @@ export class DatabaseService {
     this.eventdb.add(event);
   }
 
+  //*** TO_DO *** This method is for reference
   async loadEventsBasedOnMonth(mm:string) {
     let events = [];
     const db = getFirestore();
@@ -75,10 +82,9 @@ export class DatabaseService {
     let events = [];
     const db = getFirestore();
     const eventRef = collection(db, 'event');
-    // *** TO_DO *** Change the filter isApproved to true
     const q = query(
       eventRef,
-      where('isApproved', '==', false)
+      where('isApproved', '==', true)
     );
     const querySnapshot = await getDocs(q);
 
@@ -95,6 +101,4 @@ export class DatabaseService {
   updateSelectedEvent(event:any){
     this.selectedEvent.next(event);
   }
-
-
 }
