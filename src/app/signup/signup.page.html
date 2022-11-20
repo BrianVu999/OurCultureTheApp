@@ -5,7 +5,7 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
+<ion-content>
     <br><br>
     <div style="width: fit-content; margin: auto;text-align: center;">
         <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate>
@@ -39,12 +39,9 @@
             </div>
             <br>
             <ion-row style="margin-left: 35%;">
-                <ion-button type="submit" color="secondary" size="small">Register</ion-button>
+                <ion-button type="submit" color="warmcolor" size="small">Register</ion-button>
             </ion-row>
         </form>
         <br><br>
-        <ion-row style="margin-left: 30%;">
-            <a [routerLink]="['/findpassword']">Find my password</a>
-        </ion-row>
     </div>
 </ion-content>

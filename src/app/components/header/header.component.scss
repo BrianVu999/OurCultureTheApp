@@ -10,8 +10,6 @@
 
 #navigation {
     text-align: center;
-    
-
 }
 
 #searchBar {
@@ -19,7 +17,6 @@
    height: 2% !important;
     text-align: center;
     margin: 2px;
-
 }
 
 #link{
@@ -44,7 +41,7 @@ a {
     position: absolute;
     z-index: 100;
     opacity: 100%;
-    background-color: #82ada9;
+    background-color: #f27786;
     max-height: 150px;
 
 }
@@ -59,7 +56,7 @@ a {
 }
 
 .suggestedItems:hover {
-    background-color: #82ada9;
+    background-color: #f27786;
 }
 
 
@@ -82,4 +79,9 @@ ion-toolbar {
 
   ion-title{
     font-size: x-large;
-  }
+}
+
+ion-buttons,ion-menu-button{
+    margin-top: 3%;
+    --color: rgb(20, 19, 19);
+}

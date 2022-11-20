@@ -78,7 +78,7 @@ export class DatabaseService {
     // *** TO_DO *** Change the filter isApproved to true
     const q = query(
       eventRef,
-      where('isApproved', '==', false)
+      where('isApproved', '==', true)
     );
     const querySnapshot = await getDocs(q);
 

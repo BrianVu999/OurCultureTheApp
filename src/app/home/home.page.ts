@@ -94,8 +94,6 @@ export class HomePage implements OnInit {
       this.getFreshData(null); //fresh data every time we open the application
     });
   }
-
-
   // code under the construction for next sprint
   selectedDate: Date;
 

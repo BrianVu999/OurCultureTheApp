@@ -38,10 +38,6 @@ const routes: Routes = [
     loadChildren: () => import('./contribution/contribution.module').then( m => m.ContributionPageModule)
   },
   {
-    path: 'findpassword',
-    loadChildren: () => import('./findpassword/findpassword.module').then( m => m.FindpasswordPageModule)
-  },
-  {
     path: 'cal-modal',
     loadChildren: () => import('./pages/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
   },
