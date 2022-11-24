@@ -18,7 +18,6 @@ export class PopularEventsPage implements OnInit {
     private db: DatabaseService
   ) {
     this.db.allEvents.subscribe((data) => {
-      this.topPopularEvents = [];
       this.updateTopPopularEvents(data);
     });
   }
@@ -26,6 +25,7 @@ export class PopularEventsPage implements OnInit {
   item: any;
 
   updateTopPopularEvents(allEvents) {
+    this.topPopularEvents = [];
     allEvents.forEach((element) => {
       if (element.isPopular == true) {
         this.topPopularEvents.push(element);

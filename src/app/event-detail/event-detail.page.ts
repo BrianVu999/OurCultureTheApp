@@ -38,7 +38,7 @@ export class EventDetailPage implements OnInit {
   this.messageReason=this.selectedEvent.reason
   //format the message that we would send to the social media
   this.eventMessage="Event: "+this.messageTitle+"\n"+"Date: "+this.messageDate+"\n"+
-                    "Type: "+this.messageType+"\n"+this.messageActivity+"\n"+"BY: #OURCULTUREAPP"
+                    "Type: "+this.messageType+"\n"+this.messageActivity+"\n"+"BY: #OURCULTURESTHEAPP"
   }
   //method to send the message to Twitter
   shareViaTwitter() {
