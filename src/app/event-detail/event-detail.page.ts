@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { FacebookAuthProvider } from '@angular/fire/auth';
+import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-detail',
@@ -11,12 +13,34 @@ import { FacebookAuthProvider } from '@angular/fire/auth';
 export class EventDetailPage implements OnInit {
 
   selectedEvent:any;
-  constructor(private dbService: DatabaseService,private socialSharing: SocialSharing) { 
+  text :String;
+  constructor(private dbService: DatabaseService,private socialSharing: SocialSharing, 
+    private localNotifications: LocalNotifications, private plt : Platform
+    ) { 
     this.selectedEvent = dbService.selectedEvent.getValue;
     dbService.selectedEvent.subscribe(result => {
 
       this.selectedEvent = result;
     })
+
+    this.plt.ready().then(() =>{
+    this.localNotifications.on('click').subscribe(res =>{
+let msg = res.data? res.data.mydata : '';
+console.log("Click: ",res.title , msg, res.text);
+
+    });
+
+    this.localNotifications.on('trigger').subscribe(res =>{
+      let msg = res.data? res.data.mydata : '';
+      console.log("Trigger: ", res.title , msg, res.text);
+      
+          });
+
+  
+  
+
+
+   } );
   }
   messageDate=" "
   messageTitle=" "
@@ -73,5 +97,16 @@ export class EventDetailPage implements OnInit {
     .catch(e => {
       console.log(e);
     });
+  }
+
+  notify(){
+  this.localNotifications.schedule({
+id : 1,
+title: 'Reminder',
+text: 'Event is coming',
+data : {mydata: 'My hidden message'},
+trigger: {in: 5, unit: ELocalNotificationTriggerUnit.SECOND},
+
+  });
   }
 }

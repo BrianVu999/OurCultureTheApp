@@ -88,14 +88,14 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  background-color: #42A5F5;
+  background-color: #FBAC33;
   text-align: center;
   width: 30%;
   margin-left: 35%;
 }
 
 button:hover {
-    background-color: #311B92;
+    background-color: #DD8174;
     color: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
@@ -106,7 +106,7 @@ button:hover {
 }
 
 button:active {
-  background-color: #6000fa;
+  background-color: #DD8174;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
 }
