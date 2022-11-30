@@ -61,8 +61,8 @@ console.log("Click: ",res.title , msg, res.text);
   this.eventMessage="Event: "+this.messageTitle+"\n"+
                     "Date: "+this.messageDate+"\n"+
                     "Type: "+this.messageType+"\n"+
-                    "Things to do: "+this.messageActivity+"\n"+
-                    "BY: #OURCULTUREAPP"
+                    this.messageActivity+"\n"+
+                    "BY: #OURCULTURESAPP"
   }
 
   shareViaTwitter() {
