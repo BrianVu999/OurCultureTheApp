@@ -15,10 +15,29 @@
             </ion-list-header>
             <ion-list-header class="ion-text-center">
                 
-                <ion-button class="notify" (click)="notify()" fill="clear"> Notify me
-                </ion-button>
+                <h1><b>{{selectedEvent.title}}</b></h1> <br>
 
             </ion-list-header>
+
+            <ion-row style="margin-left: 3%;">
+                <p>  <ion-icon name="notifications" slot="icon-only"></ion-icon></p>
+                      <p > <b>Notification - </b>
+                      </p>
+                      <ion-select  class="selector" (ionChange)="setNotification($event)" value="0">
+                          <ion-select-option value="0">Don't notify</ion-select-option>
+                          <ion-select-option value="3">3 days before</ion-select-option>
+                          <ion-select-option value="2">2 days before</ion-select-option>
+                          <ion-select-option value="1">1 day before</ion-select-option>
+                          <ion-select-option value="4">After 10 seconds</ion-select-option>
+                          <ion-select-option value="5">After 15 seconds</ion-select-option>
+                         
+      
+                      </ion-select>
+                 
+      
+              </ion-row>
+
+
             <ion-item>
                 <ion-label>
                     <h2>Date of Next Event:</h2>
