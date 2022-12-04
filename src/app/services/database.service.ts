@@ -13,16 +13,16 @@ export class DatabaseService {
   userdb = this.db.collection('user');
   eventdb = this.db.collection('event');
   allEvents = new BehaviorSubject<any>([]);
-  selectedEvent = new BehaviorSubject<any>("");
+  selectedEvent = new BehaviorSubject<any>('');
 
   constructor(
     private db: AngularFirestore,
     private nativeStorage: NativeStorage
   ) {
-    this.loadEventsBasedOnMonth("09");
+    this.loadEventsBasedOnMonth('09');
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadAllEvents();
   }
 
@@ -56,7 +56,7 @@ export class DatabaseService {
   }
 
   //*** TO_DO *** This method is for reference
-  async loadEventsBasedOnMonth(mm:string) {
+  async loadEventsBasedOnMonth(mm: string) {
     let events = [];
     const db = getFirestore();
     const eventRef = collection(db, 'event');
@@ -78,27 +78,38 @@ export class DatabaseService {
     return events;
   }
 
-  async loadAllEvents(){
-    let events = [];
-    const db = getFirestore();
-    const eventRef = collection(db, 'event');
-    const q = query(
-      eventRef,
-      where('isApproved', '==', true)
+  async loadAllEvents() {
+    this.nativeStorage.getItem('allEvents').then(
+      data => {
+        console.log("Events are found in native storage");
+        console.log(data);
+        this.allEvents.next(data);
+    },
+      async error => {
+        console.log("Events are not found in native storage");
+        let events = [];
+          const db = getFirestore();
+          const eventRef = collection(db, 'event');
+          const q = query(eventRef, where('isApproved', '==', true));
+          const querySnapshot = await getDocs(q);
+    
+          querySnapshot.forEach((doc) => {
+            events.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+    
+          this.allEvents.next(events);
+          this.nativeStorage.setItem('allEvents', events).then(
+            () => console.log('Stored item!'),
+            error => console.log('Error storing item', error)
+          );
+      }
     );
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-      events.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
-
-    this.allEvents.next(events);
   }
 
-  updateSelectedEvent(event:any){
+  updateSelectedEvent(event: any) {
     this.selectedEvent.next(event);
   }
 }
