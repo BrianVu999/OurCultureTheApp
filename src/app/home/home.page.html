@@ -7,10 +7,6 @@
 
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="getFreshData($event)">
-        <ion-refresher-content>
-        </ion-refresher-content>
-    </ion-refresher>
     <div>
         <!--button to choose Monthly and Weekly Calendar-->
         <ion-segment [(ngModel)]="calendar.mode">
@@ -121,9 +117,9 @@
                 <!--options in the selector, function to call the update the selected value and fresh the arraylist needed -->
                 <ion-select interface="action-sheet" class="selector" (ionChange)="upDate($event)" value="all">
                     <ion-select-option value="all">All Events</ion-select-option>
-                    <ion-select-option value="celebration">Celebration</ion-select-option>
-                    <ion-select-option value="local">Local Holiday</ion-select-option>
-                    <ion-select-option value="statutory||Statutory Holiday">Statutory Holiday</ion-select-option>
+                    <ion-select-option value="Celebration">Celebration</ion-select-option>
+                    <ion-select-option value="Local Holiday">Local Holiday</ion-select-option>
+                    <ion-select-option value="Statutory Holiday">Statutory Holiday</ion-select-option>
 
                 </ion-select>
             </ion-col>

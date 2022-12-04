@@ -27,8 +27,15 @@
     padding-top:2% ;
 }
 
-.navi-button {
+.navi-buttons {
     padding: 1%;
+    --color: rgb(20, 19, 19);
+    margin-top: 3%;
+}
+
+ion-menu-button{
+    --color: rgb(20, 19, 19);
+    margin-top:30%;
 }
 
 a {

@@ -98,7 +98,7 @@ export class HomePage implements OnInit {
         data[index]['eventType'] = element.eventType;
       });
       this.eventSource = data;
-      this.getFreshData(null); //fresh data every time we open the application
+      this.updateIncomingWeekEvents(null); //fresh data every time we open the application
     });
 
    
@@ -110,9 +110,10 @@ export class HomePage implements OnInit {
   selectedDate: Date;
 
   //method to refresh the data
-  getFreshData(event) {
+  updateIncomingWeekEvents(event) {
     //filter to get the array list in the coming week
     this.eventsInComingWeek = this.eventSource.filter((item) => {
+      item["dateDATETYPE"] = new Date(item.date);
       return (
         // get events in upcoming week (7 days including today)
         item.endTime >= Date.now() &&
@@ -120,6 +121,9 @@ export class HomePage implements OnInit {
         (this.eventsInComingWeek = this.eventSource)
       );
     });
+    if(this.eventsInComingWeek){
+      this.eventsInComingWeek.sort((d1, d2) => d1["dateDATETYPE"] - d2["dateDATETYPE"])
+    }
     //stop the icon turning arround when the pull down the page
     if (event) event.target.complete();
 
@@ -129,11 +133,11 @@ export class HomePage implements OnInit {
   //get the event type color showing on the weekday calendar
   getColor(eventType) {
     switch (eventType) {
-      case 'local'||'Local':
+      case 'Local Holiday':
         return '#53c2b4';
-      case 'celebration'||'Celebration':
+      case 'Celebration':
         return '#F26a78';
-      case 'statutory'||'Statutory Holiday':
+      case 'Statutory Holiday':
         return '#D88352';
     }
   }

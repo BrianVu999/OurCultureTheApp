@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
-import { FacebookAuthProvider } from '@angular/fire/auth';
+// import { FacebookAuthProvider } from '@angular/fire/auth';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import {addDays} from "date-fns";
@@ -65,8 +65,8 @@ console.log("Click: ",res.title , msg, res.text);
   this.eventMessage="Event: "+this.messageTitle+"\n"+
                     "Date: "+this.messageDate+"\n"+
                     "Type: "+this.messageType+"\n"+
-                    "Things to do: "+this.messageActivity+"\n"+
-                    "BY: #OURCULTURS"
+                    this.messageActivity+"\n"+
+                    "BY: #OURCULTURESAPP"
   }
 
   shareViaTwitter() {
@@ -168,7 +168,7 @@ else{
       
 }
 
-this.showAlert('', 'You will be notified before ' + days.target.value + ' days.');
+this.showAlert('Notification', 'The event notification before ' + days.target.value + ' day(s) is added.');
      
 
     }

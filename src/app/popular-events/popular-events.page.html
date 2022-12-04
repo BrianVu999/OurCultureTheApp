@@ -3,9 +3,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getFreshData($event)">
-    <ion-refresher-content> </ion-refresher-content>
-  </ion-refresher>
   <ion-list>
     <ion-list-header>Top Popular Events:</ion-list-header>
     <ion-item *ngFor="let item of topPopularEvents; let i=index">
