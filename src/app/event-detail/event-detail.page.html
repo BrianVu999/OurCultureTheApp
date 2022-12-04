@@ -15,10 +15,30 @@
             </ion-list-header>
             <ion-list-header class="ion-text-center">
                 
-                <ion-button class="notify" (click)="notify()" fill="clear"> Notify me
-                </ion-button>
+                <p><b>{{selectedEvent.title}}</b></p> <br>
 
             </ion-list-header>
+
+            <ion-row style="margin-left: 3%;">
+                <p>  <ion-icon name="notifications" slot="icon-only"></ion-icon></p>
+                      <p > &nbsp;Notification
+                      </p>
+                      
+                      <ion-select okText="Add" class="selector" (ionChange)="setNotification($event)" value="0">
+                          <ion-select-option value="0">None</ion-select-option>
+                          <ion-select-option value="3">3 days before</ion-select-option>
+                          <ion-select-option value="2">2 days before</ion-select-option>
+                          <ion-select-option value="1">1 day before</ion-select-option>
+                          <ion-select-option value="4">After 10 seconds</ion-select-option>
+                          <ion-select-option value="5">After 15 seconds</ion-select-option>
+                         
+      
+                      </ion-select>
+                 
+      
+              </ion-row>
+
+
             <ion-item>
                 <ion-label>
                     <h2>Date of Next Event:</h2>
@@ -69,7 +89,8 @@
     <div style="display: flexbox;text-align: center;">
 
         <h4>You Can Share Via: </h4>
-
+        <h7>(Applications need pre-installation)</h7>
+        
         <ion-button (click)="shareViaTwitter()" fill="clear">
             <ion-icon name="logo-twitter" slot="icon-only"></ion-icon>
         </ion-button>
@@ -77,7 +98,7 @@
         <ion-button (click)="shareViaEmail()" fill="clear">
             <ion-icon name="mail-open" slot="icon-only"></ion-icon>
         </ion-button>
-
+        
         <ion-button (click)="shareViaWhatsapp()" fill="clear">
             <ion-icon name="logo-whatsapp" slot="icon-only"></ion-icon>
         </ion-button>
